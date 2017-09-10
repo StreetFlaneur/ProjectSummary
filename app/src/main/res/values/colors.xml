@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="whiteSecond">#FFFFFF</color>
+
+
+    <color name="blue">#1296db</color>
+    <color name="dark_blue">#3F48CC</color>
+
+    <color name="purple_grey">#544A5C</color>
+    <color name="purple_grey_trans68">#AD544A5C</color>
+
+    <color name="grey">#7F7F7F</color>
+    <color name="grey_boder_edit">#707070</color>
+    <color name="grey_lighter">#C3C3C3</color>
+    <color name="grey_reply">#F4F4F4</color>
+    <color name="grey_background">#F8F8F8</color>
+    <color name="grey_category">#EEEDEF</color>
+
+    <color name="divider_grey">#DCDCDC</color>
+    <color name="divider_list">#EFEFEF</color>
+    <color name="divider_vertical">#CCCCCC</color>
+    <color name="divider_horizontal">#F0F0F0</color>
+    <color name="line_horizontal">#4A4A4A</color>
+
+    <color name="dot_grey">#CBCBCB</color>
+
+
+    <color name="black">#000000</color>
+    <color name="text_black">#151515</color>
+    <color name="text_primary_black">#666666</color>
+    <color name="text_second_black">#333333</color>
+    <color name="text_third_black">#121212</color>
+    <color name="text_hint">#B5B4B6</color>
+    <color name="text_capion">#4A4A4A</color>
+    <color name="text_grey_lighter">#999999</color>
+
+    <color name="text_red">#E2123D</color>
+
+
+    <!--666666-->
+
+    <color name="yellow">#FFC90E</color>
+
+    <color name="orange">#FD9840</color>
+    <color name="orange_lighter">#F89B00</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="transparent_50">#80000000</color>
+    <color name="transparent_20">#CC000000</color>
+
+    <color name="trans_grey">#0878787A</color>
+    <color name="trans_white">#82FFFFFF</color>
+    <color name="trans_grey_lighter">#EEEEEE</color>
+    <color name="trans_white_second">#0FFFFFFF</color>
+
+
+    <color name="red_comment">#F23030</color>
+    <color name="red">#E2123D</color>
+
+    <color name="grey_content_back">#F7F7F7</color>
+    <color name="emerald_lighter">#248761</color>
+    <color name="green_darker">#238761</color>
+    <color name="green_lighter">#8FE0C1</color>
+    <color name="green_second">#53CFA0 </color>
+
+    <color name="blue_lighter">#49B7FF</color>
+</resources>
