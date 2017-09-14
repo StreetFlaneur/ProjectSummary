@@ -3,6 +3,7 @@ package com.sam.projectsummary;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.DisplayMetrics;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,5 +23,11 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("com.sam.projectsummary", appContext.getPackageName());
+    }
+
+    @Test
+    public void testScreenParam(){
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        DisplayMetrics metrics = new DisplayMetrics();
     }
 }
