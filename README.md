@@ -30,6 +30,6 @@ https://github.com/H07000223/FlycoTabLayout
 - 星级评价
 - 广告词 通知栏  上下交替轮播文本实现
 - 仿京东商品列表弹出popwindow进行条件筛选
-- 下拉刷新 上拉加载更多
+- 下拉刷新 上拉加载更多  参考 
 https://github.com/scwang90/SmartRefreshLayout
 https://github.com/lcodecorex/TwinklingRefreshLayout
