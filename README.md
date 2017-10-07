@@ -6,7 +6,9 @@
 * 沉浸式状态栏
   1. statusbar 和toolbar 颜色保持一致
   2. 页面布局头部是一张图片，statusbar和toolbar初始透明，随着页面滑动改变透明度
-
+   ![](/images/toolbar_change.gif)
+   ![](/images/white_image_head.gif)
+   ![](/images/blue_image_head.gif)
 ## todo
 
 
