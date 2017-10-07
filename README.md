@@ -2,12 +2,13 @@
 
 相关说明见https://github.com/chaozaiai/TechArticle
 
-- scrollview嵌套recyclerview显示不全解决办法 
-
-## todo
-- 沉浸式状态栏
+* scrollview嵌套recyclerview显示不全解决办法
+* 沉浸式状态栏
   1. statusbar 和toolbar 颜色保持一致
   2. 页面布局头部是一张图片，statusbar和toolbar初始透明，随着页面滑动改变透明度
+
+## todo
+
 
 - recyclerview 嵌套EditText ，edittext的回复列表
 - tablayout 滑动切换  
@@ -31,5 +32,6 @@ https://github.com/H07000223/FlycoTabLayout
 - 广告词 通知栏  上下交替轮播文本实现
 - 仿京东商品列表弹出popwindow进行条件筛选
 - 下拉刷新 上拉加载更多  参考 
-https://github.com/scwang90/SmartRefreshLayout
-https://github.com/lcodecorex/TwinklingRefreshLayout
+  https://github.com/scwang90/SmartRefreshLayout
+  https://github.com/lcodecorex/TwinklingRefreshLayout
+- app进程被杀死恢复机制

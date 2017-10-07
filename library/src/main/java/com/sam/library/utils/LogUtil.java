@@ -1,4 +1,4 @@
-package com.sam.library;
+package com.sam.library.utils;
 
 import android.util.Log;
 
@@ -7,7 +7,7 @@ import android.util.Log;
  */
 
 public class LogUtil {
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
 
     public static void i(String log) {
         if (!DEBUG) return;

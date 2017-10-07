@@ -20,6 +20,6 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.tv_scroll_list)
     void scrollListClick() {
-        startActivity(new Intent(this, ScrollRecyclerviewActivity.class));
+//        startActivity(new Intent(this, ScrollRecyclerviewActivity.class));
     }
 }

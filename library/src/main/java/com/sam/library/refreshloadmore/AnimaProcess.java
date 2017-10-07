@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
-import com.sam.library.LogUtil;
+import com.sam.library.utils.LogUtil;
 import com.sam.library.utils.ScrollingUtil;
 
 /**
