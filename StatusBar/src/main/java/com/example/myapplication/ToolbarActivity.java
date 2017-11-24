@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sam.library.widget.GradationScrollView;
@@ -25,6 +26,8 @@ public class ToolbarActivity extends BaseActivity
     Toolbar toolbar;
     @BindView(R.id.toolbar_common_title)
     TextView toolbarTitle;
+    @BindView(R.id.imageview_logo)
+    ImageView imageViewLogo;
 
     int white = 0xFFFFFFFF;
     int blue = 0xFF3498db;
@@ -47,11 +50,26 @@ public class ToolbarActivity extends BaseActivity
 
     }
 
+    private void scrollPosition() {
+        //scrollview 滑动到屏幕指定位置
+        int[] location = new int[2];
+        imageViewLogo.getLocationOnScreen(location);
+        final int y = location[1];
+        scrollView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.smoothScrollTo(0, y);
+            }
+        }, 500);
+    }
+
     @OnClick(R.id.button_white)
     void whiteClick() {
-        toolbar.setBackgroundColor(getResources().getColor(R.color.white));
-        toolbarTitle.setTextColor(getResources().getColor(R.color.grey_blue));
-        setImmersiveStatusBar(true, white);
+        scrollPosition();
+
+//        toolbar.setBackgroundColor(getResources().getColor(R.color.white));
+//        toolbarTitle.setTextColor(getResources().getColor(R.color.grey_blue));
+//        setImmersiveStatusBar(true, white);
     }
 
     @OnClick(R.id.button_imagehead)

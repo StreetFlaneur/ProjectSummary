@@ -9,6 +9,8 @@
    ![](/images/toolbar_change.gif)
    ![](/images/white_image_head.gif)
    ![](/images/blue_image_head.gif)
+
+* ratingBar 可设置星星宽高，以及星星之间边距的
 ## todo
 
 
