@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.sam.library.base;
 
 import android.graphics.Color;
 import android.os.Build;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.sam.library.R;
 import com.sam.library.utils.OsUtil;
 import com.sam.library.utils.StatusBarUtil;
 

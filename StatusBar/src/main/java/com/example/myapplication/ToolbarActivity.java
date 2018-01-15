@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sam.library.base.BaseActivity;
 import com.sam.library.widget.GradationScrollView;
 
 import butterknife.BindView;

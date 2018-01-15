@@ -6,11 +6,11 @@
 * 沉浸式状态栏
   1. statusbar 和toolbar 颜色保持一致
   2. 页面布局头部是一张图片，statusbar和toolbar初始透明，随着页面滑动改变透明度
-   ![](/images/toolbar_change.gif)
-   ![](/images/white_image_head.gif)
-   ![](/images/blue_image_head.gif)
+     ![](/images/toolbar_change.gif)
+      ![](/images/white_image_head.gif)
+      ![](/images/blue_image_head.gif)
 
-* ratingBar 可设置星星宽高，以及星星之间边距的
+* 星级评价 ratingBar 可设置星星宽高，以及星星之间边距的
 ## todo
 
 
@@ -33,9 +33,12 @@ https://github.com/H07000223/FlycoTabLayout
   实现列表播放，并在同一个activity或者fragment切换全屏
   https://github.com/lipangit/JiaoZiVideoPlayer
 - 星级评价
-- 广告词 通知栏  上下交替轮播文本实现
+- 广告词 通知栏  上下交替轮播文本实现  
 - 仿京东商品列表弹出popwindow进行条件筛选
 - 下拉刷新 上拉加载更多  参考 
   https://github.com/scwang90/SmartRefreshLayout
   https://github.com/lcodecorex/TwinklingRefreshLayout
 - app进程被杀死恢复机制
+- 自定义切换开关
+- webview开启定位
+- webview清除缓存 

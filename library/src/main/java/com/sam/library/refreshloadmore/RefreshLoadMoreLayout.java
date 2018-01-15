@@ -1,6 +1,7 @@
 package com.sam.library.refreshloadmore;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
 import android.support.v4.view.NestedScrollingChild;
 import android.support.v4.view.NestedScrollingChildHelper;
@@ -14,8 +15,10 @@ import android.view.ViewConfiguration;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
+import com.sam.library.R;
 import com.sam.library.refreshloadmore.bottomview.DefaultBottomView;
 import com.sam.library.refreshloadmore.headview.DefaultHeadView;
+import com.sam.library.utils.DensityUtil;
 
 /**
  * Created by zc on 2017/9/14.
@@ -50,7 +53,8 @@ public class RefreshLoadMoreLayout extends RelativeLayout
     private float mLastFocusY;
     private float mDownFocusX;
     private float mDownFocusY;
-
+    private int mMaximumFlingVelocity = ViewConfiguration.getMaximumFlingVelocity();
+    private int mMinimumFlingVelocity = ViewConfiguration.getMinimumFlingVelocity();
     protected boolean isRefreshVisible = false;
     protected boolean isLoadingVisible = false;
     protected boolean isRefreshing = false;
@@ -90,7 +94,7 @@ public class RefreshLoadMoreLayout extends RelativeLayout
 
     private IDecorator decorator;
 
-    private OnGestureListener onGestureListener;
+    private OnGestureListener gestureListener;
     private final NestedScrollingChildHelper childHelper;
     private PullRefreshListener pullListener;
 
@@ -106,9 +110,37 @@ public class RefreshLoadMoreLayout extends RelativeLayout
 
     public RefreshLoadMoreLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RefreshRefreshLayout, defStyleAttr, 0);
+        try {
+            mMaxHeadHeight = a.getDimensionPixelSize(R.styleable.RefreshRefreshLayout_tr_max_head_height, (int) DensityUtil.dp2px(context, 120));
+            mHeadHeight = a.getDimensionPixelSize(R.styleable.RefreshRefreshLayout_tr_head_height, (int) DensityUtil.dp2px(context, 80));
+            mMaxBottomHeight = a.getDimensionPixelSize(R.styleable.RefreshRefreshLayout_tr_max_bottom_height, (int) DensityUtil.dp2px(context, 120));
+            mBottomHeight = a.getDimensionPixelSize(R.styleable.RefreshRefreshLayout_tr_bottom_height, (int) DensityUtil.dp2px(context, 60));
+            mOverScrollHeight = a.getDimensionPixelSize(R.styleable.RefreshRefreshLayout_tr_overscroll_height, (int) mHeadHeight);
+            enableRefresh = a.getBoolean(R.styleable.RefreshRefreshLayout_tr_enable_refresh, true);
+            enableLoadmore = a.getBoolean(R.styleable.RefreshRefreshLayout_tr_enable_loadmore, true);
+            isPureScrollModeOn = a.getBoolean(R.styleable.RefreshRefreshLayout_tr_pureScrollMode_on, false);
+            isOverScrollTopShow = a.getBoolean(R.styleable.RefreshRefreshLayout_tr_overscroll_top_show, true);
+            isOverScrollBottomShow = a.getBoolean(R.styleable.RefreshRefreshLayout_tr_overscroll_bottom_show, true);
+            enableOverScroll = a.getBoolean(R.styleable.RefreshRefreshLayout_tr_enable_overscroll, true);
+            floatRefresh = a.getBoolean(R.styleable.RefreshRefreshLayout_tr_floatRefresh, false);
+            autoLoadMore = a.getBoolean(R.styleable.RefreshRefreshLayout_tr_autoLoadMore, false);
+            enableKeepIView = a.getBoolean(R.styleable.RefreshRefreshLayout_tr_enable_keepIView, true);
+            showRefreshingWhenOverScroll = a.getBoolean(R.styleable.RefreshRefreshLayout_tr_showRefreshingWhenOverScroll, true);
+            showLoadingWhenOverScroll = a.getBoolean(R.styleable.RefreshRefreshLayout_tr_showLoadingWhenOverScroll, true);
+        } finally {
+            a.recycle();
+        }
 
+        cp = new CoContext();
         addHeadView();
         addBottomView();
+
+        setFloatRefresh(floatRefresh);
+        setAutoLoadMore(autoLoadMore);
+        setEnableRefresh(enableRefresh);
+        setEnableLoadmore(enableLoadmore);
+
         this.childHelper = new NestedScrollingChildHelper(this);
         setNestedScrollingEnabled(true);
     }
@@ -119,10 +151,6 @@ public class RefreshLoadMoreLayout extends RelativeLayout
         mChildView = getChildAt(3);
         cp.init();
         decorator = new OverScrollDecorator(cp, new RepreshProcessor(cp));
-        initGestureListener();
-    }
-
-    private void init() {
         initGestureListener();
     }
 
@@ -142,7 +170,7 @@ public class RefreshLoadMoreLayout extends RelativeLayout
     }
 
     private void initGestureListener() {
-        onGestureListener = new OnGestureListener() {
+        gestureListener = new OnGestureListener() {
             @Override
             public void onDown(MotionEvent ev) {
                 decorator.onFingerDown(ev);
@@ -247,6 +275,51 @@ public class RefreshLoadMoreLayout extends RelativeLayout
         return super.dispatchTouchEvent(event);*/
     }
 
+
+    public void setFloatRefresh(boolean ifOpenFloatRefreshMode) {
+        floatRefresh = ifOpenFloatRefreshMode;
+        if (!floatRefresh) return;
+        post(new Runnable() {
+            @Override
+            public void run() {
+                if (mHeadFrameLayout != null) mHeadFrameLayout.bringToFront();
+            }
+        });
+    }
+
+    /**
+     * 设置OverScroll时自动加载更多
+     *
+     * @param ifAutoLoadMore 为true表示底部越界时主动进入加载跟多模式，否则直接回弹
+     */
+    public void setAutoLoadMore(boolean ifAutoLoadMore) {
+        autoLoadMore = ifAutoLoadMore;
+        if (!autoLoadMore) return;
+        setEnableLoadmore(true);
+    }
+
+    /**
+     * 是否允许加载更多
+     */
+    public void setEnableLoadmore(boolean enableLoadmore1) {
+        enableLoadmore = enableLoadmore1;
+        if (mBottomView != null) {
+            if (enableLoadmore) mBottomView.getView().setVisibility(VISIBLE);
+            else mBottomView.getView().setVisibility(GONE);
+        }
+    }
+
+    /**
+     * 是否允许下拉刷新
+     */
+    public void setEnableRefresh(boolean enableRefresh1) {
+        this.enableRefresh = enableRefresh1;
+        if (mHeadView != null) {
+            if (enableRefresh) mHeadView.getView().setVisibility(VISIBLE);
+            else mHeadView.getView().setVisibility(GONE);
+        }
+    }
+
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         boolean intercept = decorator.interceptTouchEvent(ev);
@@ -279,8 +352,13 @@ public class RefreshLoadMoreLayout extends RelativeLayout
         final float focusY = sumY / div;
         switch (action & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_POINTER_DOWN:
+                mDownFocusX = mLastFocusX = focusX;
+                mDownFocusY = mLastFocusY = focusY;
                 break;
             case MotionEvent.ACTION_POINTER_UP:
+                mDownFocusX = mLastFocusX = focusX;
+                mDownFocusY = mLastFocusY = focusY;
+                mVelocityTracker.computeCurrentVelocity(1000, mMaximumFlingVelocity);
                 break;
             case MotionEvent.ACTION_DOWN:
                 break;
