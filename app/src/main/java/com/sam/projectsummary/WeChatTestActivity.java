@@ -2,13 +2,22 @@ package com.sam.projectsummary;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ForegroundColorSpan;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.dalong.marqueeview.MarqueeView;
+import com.sam.projectsummary.widget.ClickableSpanEvent;
+import com.sam.projectsummary.widget.NoUnlineSpan;
 import com.squareup.picasso.Picasso;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
@@ -29,6 +38,8 @@ public class WeChatTestActivity extends AppCompatActivity {
     EditText editTextFilter;
     @BindView(R.id.imageviewTest)
     ImageView imageViewTest;
+    @BindView(R.id.textview_test)
+    TextView textViewTest;
 
     private String realStr = "";
     private MobileTextWatcher mobileTextWatcher;
@@ -59,6 +70,49 @@ public class WeChatTestActivity extends AppCompatActivity {
                 .load(url)
                 .into(imageViewTest);
 
+        String servicePre = "拨打电话拨打电话拨打电话拨打电话拨打电话";
+        String serviceCall = "客户电话";
+        String serviceCall5 = " 5555555";
+        int oneCount = servicePre.length() + serviceCall.length();
+        int count = servicePre.length() + serviceCall.length() + serviceCall5.length();
+
+        String content = servicePre + serviceCall;
+        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(content);
+        spannableStringBuilder.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this,
+                R.color.red)), servicePre.length(), oneCount,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableStringBuilder.setSpan(new ClickableSpanEvent(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(), "kehudainnua", Toast.LENGTH_SHORT).show();
+                    }
+                }), servicePre.length(), oneCount,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        NoUnlineSpan noUnlineSpan = new NoUnlineSpan();
+        spannableStringBuilder.setSpan(noUnlineSpan, servicePre.length(), oneCount,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+        SpannableStringBuilder call5 = new SpannableStringBuilder(serviceCall5);
+        call5.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this,
+                R.color.red)), 0, serviceCall5.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        call5.setSpan(new ClickableSpanEvent(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(), "555", Toast.LENGTH_SHORT).show();
+                    }
+                }), 0, serviceCall5.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        call5.setSpan(noUnlineSpan, 0, serviceCall5.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        spannableStringBuilder.append(call5);
+
+
+        textViewTest.setMovementMethod(LinkMovementMethod.getInstance());
+        textViewTest.setText(spannableStringBuilder);
+        textViewTest.setHighlightColor(getResources().getColor(android.R.color.transparent));
     }
 
     /**
