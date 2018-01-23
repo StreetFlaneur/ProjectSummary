@@ -7,11 +7,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.robin.lazy.cache.CacheLoaderManager;
 import com.sam.library.Constant;
 import com.sam.library.widget.AvatarView;
 import com.sam.projectsummary.constant.Constants;
@@ -73,7 +75,21 @@ public class CircleImageViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circleimage);
         ButterKnife.bind(this);
+        initCacheData();
 
+    }
+
+    private void initCacheData() {
+
+        CacheLoaderManager.getInstance().saveString("images", imageContent, 60 * 24);
+
+        String conten = CacheLoaderManager.getInstance().loadString("images");
+        if (conten.equalsIgnoreCase(imageContent)) {
+            Log.i("CACHE", "success");
+        }
+    }
+
+    private void initView() {
         Glide.with(this)
                 .load(Constants.IMAGE01)
                 .into(imageView01);
@@ -84,7 +100,6 @@ public class CircleImageViewActivity extends AppCompatActivity {
 
         Glide.with(this)
                 .load(Constants.IMAGE03)
-
                 .into(imageView03);
 
         Glide.with(this)
@@ -97,7 +112,7 @@ public class CircleImageViewActivity extends AppCompatActivity {
                 .transform(new ResizeTranbsformation(this))
                 .into(imageView05);
 
-        SimpleDraweeView  circleImage01 = findViewById(R.id.imageviewCircle);
+        SimpleDraweeView circleImage01 = findViewById(R.id.imageviewCircle);
         circleImage01.setAspectRatio(1.0f);
         Uri uri = Uri.parse(Constants.IMAGE06);
         circleImage01.setImageURI(uri);
@@ -105,14 +120,12 @@ public class CircleImageViewActivity extends AppCompatActivity {
 
         Picasso.with(this)
                 .load(Constants.IMAGE06)
-                .resize(100,100)
+                .resize(100, 100)
                 .into(avatarView);
 
 //        Glide.with(this)
 //                .load(Constants.IMAGE06)
 //                .into(avatarView1);
-
-
     }
 
 }

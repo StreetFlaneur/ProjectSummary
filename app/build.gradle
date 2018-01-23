@@ -38,5 +38,8 @@ dependencies {
     //微信支付，无统计功能
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 
+    //banner 测试
+    compile 'com.bigkoo:convenientbanner:2.0.5'
+
 
 }

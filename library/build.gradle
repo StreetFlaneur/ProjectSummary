@@ -41,12 +41,14 @@ dependencies {
 
     //走马灯
     compile 'com.dalong:marqueeview:1.0.1'
-
+    compile 'com.google.code.gson:gson:2.3'
     //加载图片
-    compile ('com.github.bumptech.glide:glide:3.6.0'){
+    compile('com.github.bumptech.glide:glide:3.6.0') {
         exclude group: 'com.android.support'
     }
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.facebook.fresco:fresco:1.7.1'
 //    compile 'jp.wasabeef:glide-transformations:3.0.1'
+//数据缓存
+    compile 'com.robin.lazy.cache:LazyCache:1.0.7'
 }
