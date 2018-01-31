@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
+import com.example.data.net.HttpMethods;
 import com.example.leftdrawer.fragment.HomeFragment;
 import com.example.leftdrawer.fragment.PersonFragment;
 import com.jkb.slidemenu.SlideMenuLayout;
@@ -31,7 +32,6 @@ public class SlideMenuActivity extends AppCompatActivity {
     @BindView(R.id.button_home)
     Button buttonHome;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +45,7 @@ public class SlideMenuActivity extends AppCompatActivity {
             fragmentTransaction.add(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
         }
+
     }
 
     @OnClick(R.id.button_person)

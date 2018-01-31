@@ -1,1 +1,1 @@
-include ':app', ':library', ':StatusBar', ':baiduditu', ':librarycommon', ':librarycoremodule', ':leftdrawer'
+include ':app', ':library', ':StatusBar', ':baiduditu', ':librarycommon', ':librarycoremodule', ':leftdrawer', ':data'

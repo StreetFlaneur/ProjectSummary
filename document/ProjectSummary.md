@@ -14,8 +14,6 @@
 
    1）android drawerLayout 实现方式
 
-   ​
-
    2）右边内容滑动，菜单展示。见 唯品会
 
    https://github.com/JustKiddingBaby/SlideMenuLayout
@@ -26,11 +24,21 @@
 
    SlideMenuLayout 支持左右菜单
 
-##### 网络访问并刷新数据
-- Retrofit+Okhttp+Rxjava2实现
+##### 应用框架
+
+采用mvvm进行层级划分model  view viewmodel 三层，实际项目中分为四个module
+
+- data层（归属于m层）（retrofit rxjava okhttp gson）: 实际发出网络请求,对返回的对象进行泛型的封装。
+- model层：实体模型；拼接要请求参数，获取不同逻辑需要返回的对象。
+- ViewModel层: 处理视图层需要的逻辑
+- View层：通过viewModel层返回的数据，进行数据展示
+
+使用的网络请求库
+- Retrofit+Okhttp+Rxjava2  上工申贝项目
 - OkHttp 实现
 - Volley实现
   该实现方式以前项目存在的问题：网络状况不好时，重试机制会造成接口调用两次的问题，设置重试机制不可用无效，目前没有好的解决办法。
+- 上传图片实现（单张、多张、附加文本信息）
 
 #### 图片加载开源库
 Glide ：图片加载主要在于两级缓存，内存和磁盘。
@@ -146,14 +154,44 @@ m:h:xh:xxh:xxxh 比例为 1:1.5:2:3:4
 
 #### 常见问题解决方案
 - scrollview嵌套recyclerview显示不全解决办法
+
 - 沉浸式状态栏
+
 - 类似淘宝头条上下滚动替换
+
 - popwindow 添加页面其他部分阴影
+
 - 前端显示图片变形解决办法
   - 保持一定的宽高比里 常使用fixXY
+
 - android6.0 以上，app切换到后台，修改权限，造成Application全局静态变量为空的问题
+
 - webview添加缓存目录后，有的页面很难加载出来
   示例：
+
+- 应用游客身份，在应用内注册登录后，重新更新页面数据
+
+  两种情况：
+
+  1)重新打开MainActivity （singleTask）,并实现newIntent回调函数 
+
+  2) 关闭登录注册页面，刷新app数据
+
+#### MVC MVP MVVM 比较
+- MVC
+View：XML布局文件。
+Model：实体模型（数据的获取、存储、数据状态变化）。
+Controller：对应于Activity，处理数据、业务和UI。
+- MVP
+View: 对应于Activity和XML，负责View的绘制以及与用户的交互。
+Model: 依然是实体模型。
+Presenter: 负责完成View与Model间的交互和业务逻辑。
+- MVVM
+View: 对应于Activity和XML，负责View的绘制以及与用户交互。
+Model: 实体模型。
+ViewModel: 负责完成View与Model间的交互，负责业务逻辑。
+MVVM的目标和思想与MVP类似，利用数据绑定(Data Binding)、依赖属性(Dependency Property)、命令(Command)、路由事件(Routed Event)等新特性，打造了一个更加灵活高效的架构。
+
 
 
 
