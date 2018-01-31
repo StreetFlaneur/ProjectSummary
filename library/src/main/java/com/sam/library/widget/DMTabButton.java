@@ -65,6 +65,21 @@ public class DMTabButton extends RelativeLayout{
 
     }
 
+    public void setHasNew(boolean hasNew) {
+        if (tab_tip != null) {
+            tab_tip.setVisibility(hasNew ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    public void setUnreadCount(int count) {
+        unread_count.setText(String.valueOf(count));
+        unread_count.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void setSelected(boolean selected) {
+        super.setSelected(selected);
+    }
 
 
 }

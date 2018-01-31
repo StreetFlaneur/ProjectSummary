@@ -1,4 +1,4 @@
-package com.sam.library.widget.ratingbar;
+package com.sam.library.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -36,8 +36,8 @@ public class DMTabTextView extends RelativeLayout {
 
     private void initLayout(Context context, AttributeSet attrs) {
         View contentView = LayoutInflater.from(context).inflate(R.layout.tab_bottom_textview_item, this);
-//        tab_button = (TextView) contentView.findViewById(R.id.tv_tab_item_text);
-//        view_line = contentView.findViewById(R.id.view_line);
+        tab_button = (TextView) contentView.findViewById(R.id.tv_tab_item_text);
+        view_line = contentView.findViewById(R.id.view_line);
         TypedArray a = getResources().obtainAttributes(attrs, R.styleable.tab_button);
         String text = a.getString(R.styleable.tab_button_tabtext);
         a.recycle();

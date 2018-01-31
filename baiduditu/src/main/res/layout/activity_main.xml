@@ -40,6 +40,15 @@
                 android:textSize="14sp"
                 tools:text="distance" />
 
+            <TextView
+                android:id="@+id/textview_distance_other"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textColor="@color/blue"
+                android:textSize="14sp"
+                tools:text="distance" />
+
         </LinearLayout>
     </RelativeLayout>
 

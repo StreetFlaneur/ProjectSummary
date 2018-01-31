@@ -1,18 +1,14 @@
 package com.example.baiduditu.view;
 
 import android.Manifest;
-import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,11 +28,25 @@ import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.overlayutil.DrivingRouteOverlay;
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.route.BikingRouteResult;
+import com.baidu.mapapi.search.route.DrivingRouteLine;
+import com.baidu.mapapi.search.route.DrivingRoutePlanOption;
+import com.baidu.mapapi.search.route.DrivingRouteResult;
+import com.baidu.mapapi.search.route.IndoorRouteResult;
+import com.baidu.mapapi.search.route.MassTransitRouteResult;
+import com.baidu.mapapi.search.route.OnGetRoutePlanResultListener;
+import com.baidu.mapapi.search.route.PlanNode;
+import com.baidu.mapapi.search.route.RoutePlanSearch;
+import com.baidu.mapapi.search.route.TransitRouteResult;
+import com.baidu.mapapi.search.route.WalkingRouteResult;
+import com.baidu.mapapi.utils.DistanceUtil;
 import com.example.baiduditu.Constants;
 import com.example.baiduditu.StoreInfo;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.sam.library.Constant;
+import com.sam.library.utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,13 +55,7 @@ import baidumapsdk.demo.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pub.devrel.easypermissions.AfterPermissionGranted;
-import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
-
-import static com.example.baiduditu.Constants.DEF_2PI;
-import static com.example.baiduditu.Constants.DEF_PI;
-import static com.example.baiduditu.Constants.DEF_PI180;
-import static com.example.baiduditu.Constants.DEF_R;
 
 /**
  * Created by sam on 2017/12/13.
@@ -59,13 +63,17 @@ import static com.example.baiduditu.Constants.DEF_R;
 
 public class LocationActivity extends AppCompatActivity
         implements SensorEventListener,
-        EasyPermissions.PermissionCallbacks {
+        EasyPermissions.PermissionCallbacks,
+        OnGetRoutePlanResultListener {
 
 
     //    @BindView(R.id.textview_storename)
     TextView textViewStoreName;
     //    @BindView(R.id.textview_distance)
     TextView textViewDistance;
+
+    //    @BindView(R.id.textview_distance_other)
+    TextView textViewDistanceOther;
 
     private String[] perms = {
             Manifest.permission.READ_PHONE_STATE,
@@ -85,13 +93,15 @@ public class LocationActivity extends AppCompatActivity
     private static final int accuracyCircleStrokeColor = 0xAA00FF00;
     private SensorManager mSensorManager;
     private Double lastX = 0.0;
-    private int mCurrentDirection = 0;
     private double mCurrentLat = 0.0;
     private double mCurrentLon = 0.0;
     private float mCurrentAccracy;
+    private int mCurrentDirection = 0;
 
     MapView mMapView;
     BaiduMap mBaiduMap;
+    RoutePlanSearch routePlanSearch;
+    DrivingRouteOverlay currentDrivingRoute;
 
     boolean isFirstLoc = true; // 是否首次定位
     private MyLocationData locData;
@@ -107,6 +117,7 @@ public class LocationActivity extends AppCompatActivity
         ButterKnife.bind(this);
         textViewStoreName = (TextView) findViewById(R.id.textview_storename);
         textViewDistance = (TextView) findViewById(R.id.textview_distance);
+        textViewDistanceOther = (TextView) findViewById(R.id.textview_distance_other);
         requiredPremission();
         Gson gson = new Gson();
         storeInfos = gson.fromJson(Constants.Citys,
@@ -144,12 +155,17 @@ public class LocationActivity extends AppCompatActivity
                 String lon = bundle.getString("lon");
                 Toast.makeText(getApplicationContext(), storeName, Toast.LENGTH_SHORT).show();
                 textViewStoreName.setText(storeName);
-                double distance = storeDistance(Double.parseDouble(lat),
-                        Double.parseDouble(lon));
-                textViewDistance.setText(String.valueOf(distance) + " m");
+                double desLat = Double.parseDouble(lat);
+                double desLon = Double.parseDouble(lon);
+                double distance = storeDistance(desLat,
+                        desLon);
+                textViewDistance.setText(StringUtil.roundTwo(String.valueOf(distance)) + " KM");
+                loadNav(desLat, desLon);
                 return false;
             }
         });
+
+//        mSearch.drivingSearch((new DrivingRoutePlanOption()).from(stNode).to(enNode))
     }
 
     //添加城市商城標記
@@ -159,58 +175,106 @@ public class LocationActivity extends AppCompatActivity
         int j = 0;
         for (int i = 0; i < storeInfos.size(); i++) {
             StoreInfo storeInfo = storeInfos.get(i);
-            if (storeInfo.getCity().equalsIgnoreCase(cityName)) {
-                if (j == 0) {
-                    textViewStoreName.setText(storeInfo.getName());
-                    double distance = storeDistance(
-                            Double.parseDouble(storeInfo.getLatitude()),
-                            Double.parseDouble(storeInfo.getLongitude()));
-                    textViewDistance.setText(String.valueOf(distance) + " m");
-                }
-                ++j;
-                LatLng point = new LatLng(
-                        Double.parseDouble(storeInfo.getLatitude()),
-                        Double.parseDouble(storeInfo.getLongitude()));
-//构建Marker图标
-                BitmapDescriptor bitmap = BitmapDescriptorFactory
-                        .fromResource(R.drawable.ic_arrow);
-//构建MarkerOption，用于在地图上添加Marker
-                Bundle bundle = new Bundle();
-                bundle.putString("city", storeInfo.getCity());
-                bundle.putString("lat", storeInfo.getLatitude());
-                bundle.putString("lon", storeInfo.getLongitude());
-                bundle.putString("storename", storeInfo.getName());
-                OverlayOptions option = new MarkerOptions()
-                        .position(point)
-                        .icon(bitmap).extraInfo(bundle);
-                options.add(option);
-                Marker marker = (Marker) (mBaiduMap.addOverlay(option));
+            if (j == 0) {
+                textViewStoreName.setText(storeInfo.getName());
+                double desLat = Double.parseDouble(storeInfo.getLatitude());
+                double desLon = Double.parseDouble(storeInfo.getLongitude());
+                double distance = storeDistance(
+                        desLat,
+                        desLon);
+                textViewDistance.setText(String.valueOf(distance) + " m");
+                loadNav(desLat, desLon);
             }
+            ++j;
+            LatLng point = new LatLng(
+                    Double.parseDouble(storeInfo.getLatitude()),
+                    Double.parseDouble(storeInfo.getLongitude()));
+//构建Marker图标
+            BitmapDescriptor bitmap = BitmapDescriptorFactory
+                    .fromResource(R.drawable.ic_arrow);
+//构建MarkerOption，用于在地图上添加Marker
+            Bundle bundle = new Bundle();
+            bundle.putString("city", storeInfo.getCity());
+            bundle.putString("lat", storeInfo.getLatitude());
+            bundle.putString("lon", storeInfo.getLongitude());
+            bundle.putString("storename", storeInfo.getName());
+            OverlayOptions option = new MarkerOptions()
+                    .position(point)
+                    .icon(bitmap).extraInfo(bundle);
+            options.add(option);
+            Marker marker = (Marker) (mBaiduMap.addOverlay(option));
         }
         //在地图上添加Marker，并显示
         mBaiduMap.addOverlays(options);
     }
 
+
+    private void loadNav(double desLat, double desLon) {
+        routePlanSearch = RoutePlanSearch.newInstance();
+        routePlanSearch.setOnGetRoutePlanResultListener(this);
+
+        LatLng startPointTest = new LatLng(mCurrentLat, mCurrentLon);
+        LatLng endPointTest = new LatLng(desLat, desLon);
+
+        // 设置起终点信息
+        PlanNode stNode = PlanNode.withLocation(startPointTest);
+        PlanNode enNode = PlanNode.withLocation(endPointTest);
+
+//        if (!NetworkHelper.isNetworkConnected(getContext().getApplicationContext())) {
+//            locationError();
+//        } else {
+        // 实际使用中请对起点终点城市进行正确的设定
+        routePlanSearch.drivingSearch((new DrivingRoutePlanOption()).from(stNode).to(enNode));
+//        }
+    }
+
+    @Override
+    public void onGetWalkingRouteResult(WalkingRouteResult walkingRouteResult) {
+
+    }
+
+    @Override
+    public void onGetTransitRouteResult(TransitRouteResult transitRouteResult) {
+
+    }
+
+    @Override
+    public void onGetMassTransitRouteResult(MassTransitRouteResult massTransitRouteResult) {
+
+    }
+
+    //路线规划结果
+    @Override
+    public void onGetDrivingRouteResult(DrivingRouteResult drivingRouteResult) {
+        if (drivingRouteResult.error == SearchResult.ERRORNO.NO_ERROR) {
+            if (currentDrivingRoute != null) {
+                currentDrivingRoute.removeFromMap();
+            }
+            double distance = drivingRouteResult.getRouteLines().get(0).getDistance();
+            textViewDistanceOther.setText(String.valueOf(distance / 1000));
+            currentDrivingRoute = new DrivingRouteOverlay(mBaiduMap);
+            mBaiduMap.setOnMarkerClickListener(currentDrivingRoute);
+            currentDrivingRoute.setData(drivingRouteResult.getRouteLines().get(0));
+            currentDrivingRoute.addToMap();
+//            currentDrivingRoute.zoomToSpan();
+        } else {
+            Toast.makeText(getApplicationContext(), "路线规划失败", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onGetIndoorRouteResult(IndoorRouteResult indoorRouteResult) {
+
+    }
+
+    @Override
+    public void onGetBikingRouteResult(BikingRouteResult bikingRouteResult) {
+
+    }
+
     private double storeDistance(double desLat, double desLon) {
-        double ew1, ns1, ew2, ns2;
-        double dx, dy, dew;
-        double distance;
-        // 角度转换为弧度
-        ew1 = mCurrentLon * DEF_PI180;
-        ns1 = mCurrentLat * DEF_PI180;
-        ew2 = desLon * DEF_PI180;
-        ns2 = desLat * DEF_PI180;
-        // 经度差
-        dew = ew1 - ew2;
-        // 若跨东经和西经180 度，进行调整
-        if (dew > DEF_PI)
-            dew = DEF_2PI - dew;
-        else if (dew < -DEF_PI)
-            dew = DEF_2PI + dew;
-        dx = DEF_R * Math.cos(ns1) * dew; // 东西方向长度(在纬度圈上的投影长度)
-        dy = DEF_R * (ns1 - ns2); // 南北方向长度(在经度圈上的投影长度)
-        // 勾股定理求斜边长
-        distance = Math.sqrt(dx * dx + dy * dy);
+        double distance = DistanceUtil.getDistance(new LatLng(mCurrentLat, mCurrentLon), new LatLng(desLat, desLon));
+        distance = distance / 1000;
         return distance;
     }
 

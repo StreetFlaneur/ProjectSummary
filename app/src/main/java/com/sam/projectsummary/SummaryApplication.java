@@ -23,9 +23,9 @@ public class SummaryApplication extends Application {
         super.onCreate();
         Fresco.initialize(this);
         registWeChat();
-        CacheLoaderConfiguration cacheLoaderConfiguration  = new CacheLoaderConfiguration();
-        CacheLoaderManager.getInstance().init(this,
-                new HashCodeFileNameGenerator(), 1024 * 1024 * 8, 50, 20);
+//        CacheLoaderConfiguration cacheLoaderConfiguration  = new CacheLoaderConfiguration();
+//        CacheLoaderManager.getInstance().init(this,
+//        new HashCodeFileNameGenerator(), 1024 * 1024 * 8, 50, 20);
     }
 
     String weChatAppId = "wxd930ea5d5a258f4f";

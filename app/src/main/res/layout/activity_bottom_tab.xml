@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.sam.library.widget.MFViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.sam.library.widget.MFViewPager>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#D6DCDC" />
+
+        <com.sam.library.widget.DMTabHost
+            android:id="@+id/tab_host"
+            android:layout_width="match_parent"
+            android:layout_height="47dip"
+            android:orientation="horizontal"
+            android:paddingBottom="1dp">
+
+            <com.sam.library.widget.DMTabButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:drawableTop="@drawable/tab_weixin"
+                app:tabtext="@string/app_name"></com.sam.library.widget.DMTabButton>
+
+            <com.sam.library.widget.DMTabButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:drawableTop="@drawable/tab_contact_list"
+                app:tabtext="@string/contacts"></com.sam.library.widget.DMTabButton>
+
+            <com.sam.library.widget.DMTabButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:drawableTop="@drawable/tab_find"
+                app:tabtext="@string/discover"></com.sam.library.widget.DMTabButton>
+
+            <com.sam.library.widget.DMTabButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:drawableTop="@drawable/tab_profile"
+                app:tabtext="@string/me"></com.sam.library.widget.DMTabButton>
+        </com.sam.library.widget.DMTabHost>
+    </LinearLayout>
+</RelativeLayout>
