@@ -32,8 +32,8 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
     compile 'com.jakewharton:butterknife:8.8.1'
-    compile 'com.zzhoujay.richtext:richtext:2.5.4'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'com.zzhoujay.richtext:richtext:2.5.4'
 
     //微信支付，无统计功能
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'

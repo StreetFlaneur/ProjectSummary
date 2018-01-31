@@ -43,6 +43,7 @@ public class DMTabButton extends RelativeLayout{
 
     private void initLayout(Context context, AttributeSet attrs) {
         // TODO Auto-generated method stub
+        //字体颜色变化在布局文件里面
         View contentView = LayoutInflater.from(context).inflate(R.layout.tab_bottom_button_item, this);
         image = (ImageView) contentView.findViewById(R.id.iv_tab_item_icon);
         tab_button = (TextView) contentView.findViewById(R.id.tv_tab_item_icon);

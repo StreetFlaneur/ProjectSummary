@@ -54,6 +54,7 @@
 
         </activity>
 
+        <!--首页底部导航栏-->
         <activity android:name=".activity.BottomTabActivtiy">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

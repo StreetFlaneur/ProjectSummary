@@ -22,4 +22,26 @@
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer" />
 
+
+    <RelativeLayout
+        android:id="@+id/layout_right"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="@color/green_darker">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="右边菜单"
+            android:textColor="@color/white" />
+
+        <!--<include-->
+        <!--android:id="@+id/right_menu"-->
+        <!--layout="@layout/fragment_home_right" />-->
+
+    </RelativeLayout>
+
+
 </android.support.v4.widget.DrawerLayout>
