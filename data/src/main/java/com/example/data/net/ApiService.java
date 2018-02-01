@@ -6,10 +6,13 @@ import com.example.data.entity.BookResult;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -26,5 +29,11 @@ public interface ApiService {
             @Query("tag") String tag,
             @Query("start") String start,
             @Query("count") String count
+    );
+
+    @Multipart
+    @POST("showCircle/photoUpload")
+    Observable<HttpResult<String>> photoUpload(
+            @Part MultipartBody.Part part
     );
 }

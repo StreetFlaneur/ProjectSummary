@@ -1,33 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:gravity="center">
 
-    <RelativeLayout
+    <com.sam.library.widget.GradationScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textview_search"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Search" />
-
-        <EditText
-            android:id="@+id/edittext_keyword"
+        <LinearLayout
+            android:id="@+id/layout_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toLeftOf="@id/textview_search"
-            android:layout_toStartOf="@id/textview_search" />
-    </RelativeLayout>
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textview_content"
-        android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/layout_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textview_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Search" />
+
+                    <EditText
+                        android:id="@+id/edittext_keyword"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toLeftOf="@id/textview_search"
+                        android:layout_toStartOf="@id/textview_search" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/textview_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Home" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:text="slidemenuContent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:text="slidemenuContent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:text="slidemenuContent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:text="slidemenuContent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:text="slidemenuContent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:text="slidemenuContent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_button_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/button_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="menu" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/layout_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:text="slidemenuContent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:text="slidemenuContent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:text="slidemenuContent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:text="slidemenuContent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:text="slidemenuContent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:text="slidemenuContent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:text="slidemenuContent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:text="slidemenuContent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:text="slidemenuContent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:text="slidemenuContent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:text="slidemenuContent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:text="slidemenuContent" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.sam.library.widget.GradationScrollView>
+
+    <LinearLayout
+        android:id="@+id/layoutchange_menu"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Home" />
-</LinearLayout>
+        android:orientation="vertical"
+        android:visibility="visible">
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

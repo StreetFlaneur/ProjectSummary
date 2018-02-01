@@ -17,7 +17,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.facebook.common.internal.Preconditions.checkNotNull;
 
 /**
  * Created by sam on 2018/1/31.

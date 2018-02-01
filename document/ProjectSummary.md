@@ -10,7 +10,7 @@
 
 2. 侧滑菜单  见项目中leftdrawer module
 
-   三种实现方式：
+   三种效果实现方式：
 
    1）android drawerLayout 实现方式
 
@@ -26,7 +26,8 @@
 
 ##### 应用框架
 
-采用mvvm进行层级划分model  view viewmodel 三层，实际项目中分为四个module
+采用mvvm进行层级划分model  view viewmodel 三层，实际项目中分为四个module。
+存在的问题：会有很多的重复代码，创建很多的activity fragment 继承RxBase  有很多类（实际直接使用HttpMethods 可以直接获取数据，由datadomain层有重新封装一次）。如何减少这些代码量，还没找到解决办法。
 
 - data层（归属于m层）（retrofit rxjava okhttp gson）: 实际发出网络请求,对返回的对象进行泛型的封装。
 - model层：实体模型；拼接要请求参数，获取不同逻辑需要返回的对象。
@@ -34,11 +35,27 @@
 - View层：通过viewModel层返回的数据，进行数据展示
 
 使用的网络请求库
-- Retrofit+Okhttp+Rxjava2  上工申贝项目
-- OkHttp 实现
-- Volley实现
-  该实现方式以前项目存在的问题：网络状况不好时，重试机制会造成接口调用两次的问题，设置重试机制不可用无效，目前没有好的解决办法。
+- Retrofit+Okhttp+Rxjava2  见data module
+- OkHttp todo
+- Volley  todo
+  **该实现方式以前项目存在的问题：网络状况不好时，重试机制会造成接口调用两次的问题，设置重试机制不可用无效，目前没有好的解决办法。**
 - 上传图片实现（单张、多张、附加文本信息）
+1)retrofit okhttp 多媒体提交 multi 没有附带多余文本信息
+```
+@Multipart
+    @POST("showCircle/photoUpload")
+    Observable<HttpResult<PhotoItem>> photoUpload(
+            @Part MultipartBody.Part part
+    );
+Observable<PhotoItem> photoUpload(MultipartBody.Part part, ProgressListener listener) {
+        initUploadService(listener);
+        return uploadApiService.photoUpload(part)
+                .compose(RxUtils.<HttpResult<PhotoItem>>rxSchedulerHelper())
+                .map(new HttpResultFunctionObject<PhotoItem>())
+                .onErrorResumeNext(new HttpExceptionFunc<PhotoItem>());
+    }
+```
+2)使用base64 post方法提交，见BitmapUtils 类
 
 #### 图片加载开源库
 Glide ：图片加载主要在于两级缓存，内存和磁盘。
@@ -53,14 +70,15 @@ Volley
 #### 页面常用效果
 - 沉浸式状态栏
 - 标题随内容滑动，标题按钮和标题渐变
-- 页面状态
+- 页面加载数据成功 失败的状态页面  上工设备项目
+- 页面滑动悬浮标题效果
+- 底部bottomsheetdialog  显示全部 并且圆形按钮高出一部分
+- 列表字母排序
 
 #### 常用其他开源库
 
 - butterknife
-
-  需要放在项目里面，引用library中 View会报空指针异常
-
+  需要放在项目model里面，引用library中 View会报空指针异常
 
 - 动态权限
   https://github.com/googlesamples/easypermissions
@@ -133,6 +151,18 @@ Volley
 
  - 富文本显示
     compile 'com.zzhoujay.richtext:richtext:2.5.4'
+- 百度地图定位+导航 见baiduditu  module
+使用最新sdk，遇到问题
+1) .so文件一直加载失败
+gralde.xml  配置如下代码，并把相关so文件复制到libs目录下。不要新建目录jinLibs.
+```
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+```
+2) 地图定位图层一直不显示
 
 
 #### UI切图
@@ -169,14 +199,6 @@ m:h:xh:xxh:xxxh 比例为 1:1.5:2:3:4
 - webview添加缓存目录后，有的页面很难加载出来
   示例：
 
-- 应用游客身份，在应用内注册登录后，重新更新页面数据
-
-  两种情况：
-
-  1)重新打开MainActivity （singleTask）,并实现newIntent回调函数 
-
-  2) 关闭登录注册页面，刷新app数据
-
 #### MVC MVP MVVM 比较
 - MVC
 View：XML布局文件。
@@ -191,6 +213,14 @@ View: 对应于Activity和XML，负责View的绘制以及与用户交互。
 Model: 实体模型。
 ViewModel: 负责完成View与Model间的交互，负责业务逻辑。
 MVVM的目标和思想与MVP类似，利用数据绑定(Data Binding)、依赖属性(Dependency Property)、命令(Command)、路由事件(Routed Event)等新特性，打造了一个更加灵活高效的架构。
+
+#### 常见流程
+- app有游客情况，在app内部进行登录注册流程
+  两种情况：
+
+  1)重新打开MainActivity （singleTask）,并实现newIntent回调函数 
+
+  2) 关闭登录注册页面，刷新app数据。手机猪八戒处理方法，应用首先进入首页（我的），判断没有登录，打开登录页面（包含注册按钮），注册或者登录成功后，当前页面关闭，原来页面保持不变，更新app数据。
 
 
 

@@ -1,12 +1,15 @@
 package com.sam.projectsummary.activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.widget.TextView;
 
+import com.sam.library.widget.ProgressBarWebView;
 import com.sam.projectsummary.R;
 import com.sam.projectsummary.constant.Constants;
 
@@ -19,8 +22,8 @@ import butterknife.ButterKnife;
 
 public class HomeFragment extends BaseFragment {
 
-    @BindView(R.id.textview_content)
-    TextView textViewContent;
+    @BindView(R.id.progress_webview)
+    ProgressBarWebView webView;
 
     public static HomeFragment newInstance(String content) {
         HomeFragment fragment = new HomeFragment();
@@ -42,7 +45,16 @@ public class HomeFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         String content = getArguments().getString(Constants.PUTEXTRA_CONTENT);
-        textViewContent.setText(content);
+        String url = "http://promotion.metro.com.cn/201804-shang-hai-pu-tuo-shang-hai-min-xing-shang-hai-pu-dong-shang-hai-jia-ding-shang-hai-jin-shan-shang-hai-qing-pu-shang-hai-song-jiang/?cid=cn:store:sm:wechat:metromail_201804";
+//        String url = "https://cn.bing.com/";
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setSupportMultipleWindows(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
+        webView.loadUrl(url);
     }
 
     @Override
