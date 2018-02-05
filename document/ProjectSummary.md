@@ -72,6 +72,7 @@ Volley
 - 标题随内容滑动，标题按钮和标题渐变
 - 页面加载数据成功 失败的状态页面  上工设备项目
 - 页面滑动悬浮标题效果
+  见 leftdrawer module  HomeFragment
 - 底部bottomsheetdialog  显示全部 并且圆形按钮高出一部分
 - 列表字母排序
 
@@ -164,6 +165,9 @@ repositories {
 ```
 2) 地图定位图层一直不显示
 
+- 扫码库 见zxingLibrary2
+https://github.com/fengchuiyeluo/Zxing.git
+
 
 #### UI切图
 android单独一套图
@@ -198,10 +202,10 @@ m:h:xh:xxh:xxxh 比例为 1:1.5:2:3:4
 
 - webview添加缓存目录后，有的页面很难加载出来
   示例：
-  
+
 - 多语言设置 7.0版本以上
-在7.0系统以后，系统语言选择已经不再是设置一种语言，而是可以设置一组语言。
-需要在BaseActivity里面设置语言，或者在每一个activity里面都设置语言。
+  在7.0系统以后，系统语言选择已经不再是设置一种语言，而是可以设置一组语言。
+  需要在BaseActivity里面设置语言，或者在每一个activity里面都设置语言。
 
 #### MVC MVP MVVM 比较
 - MVC
@@ -225,6 +229,14 @@ m:h:xh:xxh:xxxh 比例为 1:1.5:2:3:4
   1)重新打开MainActivity （singleTask）,并实现newIntent回调函数 
 
   2) 关闭登录注册页面，刷新app数据。手机猪八戒处理方法，应用首先进入首页（我的），判断没有登录，打开登录页面（包含注册按钮），注册或者登录成功后，当前页面关闭，原来页面保持不变，更新app数据。
+
+###
+其他常见问题：
+- 应用ANR
+  ANR的产生原因主要为以下三点：
+  1.主线程View的点击事件或者触摸事件在特定的时间（5s）内无法得到响应。
+  2.BroadcastReceiver的onReceive()函数运行在主线程中，在特定的时间（10s）内无法完成处理。
+  3.Service的各个生命周期函数在特定时间（20s）内无法完成处理。
 
 
 
