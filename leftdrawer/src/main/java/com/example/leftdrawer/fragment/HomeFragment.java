@@ -32,7 +32,7 @@ public class HomeFragment extends BaseFragment {
     @BindView(R.id.layout_top)
     LinearLayout layoutTop;
     @BindView(R.id.layoutchange_menu_suspension)
-    LinearLayout layoutchange_menu_suspension;
+    LinearLayout layoutSuspension;
     @BindView(R.id.layout_content)
     LinearLayout layoutContent;
     @BindView(R.id.layout_button_menu)//承载悬浮菜单高度要和菜单高度一致。才能保证平滑效果
@@ -65,21 +65,22 @@ public class HomeFragment extends BaseFragment {
                 Log.i("Height", String.valueOf(topHeight));
                 //显示悬浮按钮layout top
                 if (y > 0 && y >= topHeight) {
-                    layoutchange_menu_suspension.setVisibility(View.VISIBLE);
-                 /*   if (buttonMenu.getParent() != linearLayoutChangeMenu) {
-                        layoutButtonMenu.removeView(buttonMenu);
-//                        layoutButtonMenu.setVisibility(View.VISIBLE);
-                        linearLayoutChangeMenu.addView(buttonMenu);
-//                        linearLayoutChangeMenu.setVisibility(View.GONE);
-                    }*/
+                    //当menu的顶部到达页面顶部时候，显示
+                    if (View.VISIBLE == layoutSuspension.getVisibility()) {
+                        return;
+                    }
+                    layoutSuspension.setVisibility(View.VISIBLE);
                     //再增加一个条件
-                } else if (y <= topHeight + layoutButtonMenu.getHeight()) {
-                    layoutchange_menu_suspension.setVisibility(View.GONE);
-                   /* if (buttonMenu.getParent() != layoutButtonMenu) {
-                        linearLayoutChangeMenu.removeView(buttonMenu);
-                        layoutButtonMenu.addView(buttonMenu);
-                    }*/
+                } else if (y <= topHeight) {
+                    //当menu的顶部和悬浮的menu顶部重合时，隐藏
+                    //代码走到这里，只要小于topHeight 肯定小于topHeight加上一个值
+                    Log.i("SCRLL", "y" + y);
+                    if (View.GONE == layoutSuspension.getVisibility()) {
+                        return;
+                    }
+                    layoutSuspension.setVisibility(View.GONE);
                 }
+                Log.i("SCROLLMENU", "y: " + y + " topHeight: " + topHeight + " menuHeight:" + layoutButtonMenu.getHeight());
             }
         });
     }

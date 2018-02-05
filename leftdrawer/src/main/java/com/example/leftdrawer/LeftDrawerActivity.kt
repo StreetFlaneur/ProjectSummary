@@ -2,9 +2,10 @@ package com.example.leftdrawer
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.design.widget.NavigationView
+import android.support.constraint.ConstraintLayout
+import android.support.design.widget.*
 import android.support.v4.view.GravityCompat
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
@@ -14,6 +15,9 @@ import com.example.leftdrawer.fragment.HomeFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import android.view.View
+import android.support.design.widget.BottomSheetDialog
+
 
 class LeftDrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -21,11 +25,6 @@ class LeftDrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
@@ -39,6 +38,38 @@ class LeftDrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
             startActivity(Intent(LeftDrawerActivity@ this, SlideMenuActivity::class.java));
         }
 //        nav_view.setNavigationItemSelectedListener(this)
+        val constraintlayout = findViewById<CoordinatorLayout>(R.id.constraintlayout)
+        val bottomSheet = constraintlayout.findViewById<NestedScrollView>(R.id.bottom_sheet)
+        val behavior = BottomSheetBehavior.from(bottomSheet)
+        behavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onSlide(p0: View, p1: Float) {
+
+            }
+
+            override fun onStateChanged(p0: View, p1: Int) {
+
+            }
+        })
+        behavior.peekHeight = 200
+
+        button_bottomsheet.setOnClickListener { view ->
+            if (behavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+                behavior.state = BottomSheetBehavior.STATE_HIDDEN
+            } else {
+                behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            }
+        }
+
+        button_bottomsheetdialog.setOnClickListener { view ->
+            val dialog = BottomSheetDialog(this)
+            val view = layoutInflater.inflate(R.layout.bottomsheetgialog, null)
+            dialog.setContentView(view)
+            dialog.show()
+        }
+
+        button_bottomsheetfragment.setOnClickListener({ view ->
+
+        })
     }
 
     fun changeFragment(content: String) {
