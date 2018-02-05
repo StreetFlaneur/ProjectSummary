@@ -133,7 +133,6 @@ public class LocationActivity extends AppCompatActivity
         // 开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
         // 定位初始化
-
         mCurrentMode = MyLocationConfiguration.LocationMode.FOLLOWING;
         mBaiduMap.setMyLocationConfiguration(new MyLocationConfiguration(
                 mCurrentMode, true, mCurrentMarker));

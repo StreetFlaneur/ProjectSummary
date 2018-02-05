@@ -166,12 +166,17 @@
     </com.sam.library.widget.GradationScrollView>
 
     <LinearLayout
-        android:id="@+id/layoutchange_menu"
+        android:id="@+id/layoutchange_menu_suspension"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
+        <Button
+            android:id="@+id/button_menu_"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="menu" />
 
     </LinearLayout>
 

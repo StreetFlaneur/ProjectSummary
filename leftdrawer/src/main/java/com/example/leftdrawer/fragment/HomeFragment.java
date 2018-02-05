@@ -31,12 +31,12 @@ public class HomeFragment extends BaseFragment {
     Button buttonMenu;
     @BindView(R.id.layout_top)
     LinearLayout layoutTop;
-    @BindView(R.id.layoutchange_menu)
-    LinearLayout linearLayoutChangeMenu;
+    @BindView(R.id.layoutchange_menu_suspension)
+    LinearLayout layoutchange_menu_suspension;
     @BindView(R.id.layout_content)
     LinearLayout layoutContent;
     @BindView(R.id.layout_button_menu)//承载悬浮菜单高度要和菜单高度一致。才能保证平滑效果
-    LinearLayout layoutButtonMenu;
+            LinearLayout layoutButtonMenu;
 
     public static HomeFragment newInstance(String content) {
         HomeFragment fragment = new HomeFragment();
@@ -57,42 +57,29 @@ public class HomeFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         textViewContent.setText("Home");
-        gradationScrollView.setScrollListener(new GradationScrollView.ScrollListener() {
+        gradationScrollView.setScrollViewListener(new GradationScrollView.ScrollViewListener() {
             @Override
-            public void onScrollToBottom() {
-
-            }
-
-            @Override
-            public void onScrollToTop() {
-
-            }
-
-            @Override
-            public void onScroll(int scrollY) {
+            public void onScrollChanged(int x, int y, int oldl, int oldt) {
                 topHeight = layoutButtonMenu.getTop();
 
                 Log.i("Height", String.valueOf(topHeight));
                 //显示悬浮按钮layout top
-                if (scrollY > 0 && scrollY >= topHeight) {
-                    if (buttonMenu.getParent() != linearLayoutChangeMenu) {
+                if (y > 0 && y >= topHeight) {
+                    layoutchange_menu_suspension.setVisibility(View.VISIBLE);
+                 /*   if (buttonMenu.getParent() != linearLayoutChangeMenu) {
                         layoutButtonMenu.removeView(buttonMenu);
 //                        layoutButtonMenu.setVisibility(View.VISIBLE);
                         linearLayoutChangeMenu.addView(buttonMenu);
 //                        linearLayoutChangeMenu.setVisibility(View.GONE);
-                    }
+                    }*/
                     //再增加一个条件
-                } else {
-                    if (buttonMenu.getParent() != layoutButtonMenu) {
+                } else if (y <= topHeight + layoutButtonMenu.getHeight()) {
+                    layoutchange_menu_suspension.setVisibility(View.GONE);
+                   /* if (buttonMenu.getParent() != layoutButtonMenu) {
                         linearLayoutChangeMenu.removeView(buttonMenu);
                         layoutButtonMenu.addView(buttonMenu);
-                    }
+                    }*/
                 }
-            }
-
-            @Override
-            public void notBottom() {
-
             }
         });
     }
