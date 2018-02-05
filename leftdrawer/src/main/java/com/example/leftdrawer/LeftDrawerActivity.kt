@@ -2,13 +2,11 @@ package com.example.leftdrawer
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
 import android.support.design.widget.*
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import com.example.leftdrawer.fragment.HomeFragment
@@ -17,6 +15,8 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import android.view.View
 import android.support.design.widget.BottomSheetDialog
+import android.view.WindowManager
+import com.example.leftdrawer.fragment.MenuBottomSheetDialogFragment
 
 
 class LeftDrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -62,13 +62,15 @@ class LeftDrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
 
         button_bottomsheetdialog.setOnClickListener { view ->
             val dialog = BottomSheetDialog(this)
-            val view = layoutInflater.inflate(R.layout.bottomsheetgialog, null)
+            val view = layoutInflater.inflate(R.layout.bottomsheet_dialog, null)
+            dialog.window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             dialog.setContentView(view)
             dialog.show()
         }
 
         button_bottomsheetfragment.setOnClickListener({ view ->
-
+            val bottomSheetFragment = MenuBottomSheetDialogFragment()
+            bottomSheetFragment.show(supportFragmentManager, "dialog")
         })
     }
 

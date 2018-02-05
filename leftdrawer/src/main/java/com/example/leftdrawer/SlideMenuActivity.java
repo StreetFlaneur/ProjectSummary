@@ -40,7 +40,7 @@ public class SlideMenuActivity extends AppCompatActivity {
         HomeFragment fragment = (HomeFragment) (getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_container));
         if (fragment == null) {
-            fragment = HomeFragment.newInstance("");
+            fragment = HomeFragment.Companion.newInstance("");
             fragmentTransaction.add(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
         }
@@ -58,7 +58,7 @@ public class SlideMenuActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_home)
     void homeClick() {
-        HomeFragment homeFragment = HomeFragment.newInstance("home");
+        HomeFragment homeFragment = HomeFragment.Companion.newInstance("home");
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, homeFragment)
                 .commitAllowingStateLoss();

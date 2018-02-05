@@ -5,6 +5,7 @@
     android:id="@+id/constraintlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/transparent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.leftdrawer.LeftDrawerActivity"
     tools:showIn="@layout/app_bar_main">
@@ -73,8 +74,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/button_slidemenu"
@@ -86,19 +87,19 @@
             android:id="@+id/button_bottomsheet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="bottomsheet"/>
+            android:text="bottomsheet" />
 
         <Button
             android:id="@+id/button_bottomsheetdialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="bottomsheetdialog"/>
+            android:text="bottomsheetdialog" />
 
         <Button
             android:id="@+id/button_bottomsheetfragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="bottomsheetfragment"/>
+            android:text="bottomsheetfragment" />
 
         <TextView
             android:layout_width="wrap_content"

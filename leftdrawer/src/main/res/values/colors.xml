@@ -14,4 +14,6 @@
     <color name="green_second">#53CFA0 </color>
 
     <color name="blue_lighter">#49B7FF</color>
+    <!--android.R.color.transparent-->
+    <color name="transparent">#00ffffff</color>
 </resources>
