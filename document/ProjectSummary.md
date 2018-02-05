@@ -40,7 +40,7 @@
 - Volley  todo
   **该实现方式以前项目存在的问题：网络状况不好时，重试机制会造成接口调用两次的问题，设置重试机制不可用无效，目前没有好的解决办法。**
 - 上传图片实现（单张、多张、附加文本信息）
-1)retrofit okhttp 多媒体提交 multi 没有附带多余文本信息
+  1)retrofit okhttp 多媒体提交 multi 没有附带多余文本信息
 ```
 @Multipart
     @POST("showCircle/photoUpload")
@@ -152,9 +152,9 @@ Volley
  - 富文本显示
     compile 'com.zzhoujay.richtext:richtext:2.5.4'
 - 百度地图定位+导航 见baiduditu  module
-使用最新sdk，遇到问题
-1) .so文件一直加载失败
-gralde.xml  配置如下代码，并把相关so文件复制到libs目录下。不要新建目录jinLibs.
+  使用最新sdk，遇到问题
+  1) .so文件一直加载失败
+  gralde.xml  配置如下代码，并把相关so文件复制到libs目录下。不要新建目录jinLibs.
 ```
 repositories {
     flatDir {
@@ -198,21 +198,25 @@ m:h:xh:xxh:xxxh 比例为 1:1.5:2:3:4
 
 - webview添加缓存目录后，有的页面很难加载出来
   示例：
+  
+- 多语言设置 7.0版本以上
+在7.0系统以后，系统语言选择已经不再是设置一种语言，而是可以设置一组语言。
+需要在BaseActivity里面设置语言，或者在每一个activity里面都设置语言。
 
 #### MVC MVP MVVM 比较
 - MVC
-View：XML布局文件。
-Model：实体模型（数据的获取、存储、数据状态变化）。
-Controller：对应于Activity，处理数据、业务和UI。
+  View：XML布局文件。
+  Model：实体模型（数据的获取、存储、数据状态变化）。
+  Controller：对应于Activity，处理数据、业务和UI。
 - MVP
-View: 对应于Activity和XML，负责View的绘制以及与用户的交互。
-Model: 依然是实体模型。
-Presenter: 负责完成View与Model间的交互和业务逻辑。
+  View: 对应于Activity和XML，负责View的绘制以及与用户的交互。
+  Model: 依然是实体模型。
+  Presenter: 负责完成View与Model间的交互和业务逻辑。
 - MVVM
-View: 对应于Activity和XML，负责View的绘制以及与用户交互。
-Model: 实体模型。
-ViewModel: 负责完成View与Model间的交互，负责业务逻辑。
-MVVM的目标和思想与MVP类似，利用数据绑定(Data Binding)、依赖属性(Dependency Property)、命令(Command)、路由事件(Routed Event)等新特性，打造了一个更加灵活高效的架构。
+  View: 对应于Activity和XML，负责View的绘制以及与用户交互。
+  Model: 实体模型。
+  ViewModel: 负责完成View与Model间的交互，负责业务逻辑。
+  MVVM的目标和思想与MVP类似，利用数据绑定(Data Binding)、依赖属性(Dependency Property)、命令(Command)、路由事件(Routed Event)等新特性，打造了一个更加灵活高效的架构。
 
 #### 常见流程
 - app有游客情况，在app内部进行登录注册流程

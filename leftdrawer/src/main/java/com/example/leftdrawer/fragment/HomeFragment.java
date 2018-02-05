@@ -35,7 +35,7 @@ public class HomeFragment extends BaseFragment {
     LinearLayout linearLayoutChangeMenu;
     @BindView(R.id.layout_content)
     LinearLayout layoutContent;
-    @BindView(R.id.layout_button_menu)
+    @BindView(R.id.layout_button_menu)//承载悬浮菜单高度要和菜单高度一致。才能保证平滑效果
     LinearLayout layoutButtonMenu;
 
     public static HomeFragment newInstance(String content) {
@@ -82,7 +82,7 @@ public class HomeFragment extends BaseFragment {
 //                        linearLayoutChangeMenu.setVisibility(View.GONE);
                     }
                     //再增加一个条件
-                } else if (scrollY < (topHeight - buttonMenu.getHeight())) {
+                } else {
                     if (buttonMenu.getParent() != layoutButtonMenu) {
                         linearLayoutChangeMenu.removeView(buttonMenu);
                         layoutButtonMenu.addView(buttonMenu);
