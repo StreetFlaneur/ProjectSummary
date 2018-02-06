@@ -37,7 +37,6 @@ class LeftDrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
             //            startActivity(Intent(this, SlideMenuActivity::class.java))
             startActivity(Intent(LeftDrawerActivity@ this, SlideMenuActivity::class.java));
         }
-//        nav_view.setNavigationItemSelectedListener(this)
         val constraintlayout = findViewById<CoordinatorLayout>(R.id.constraintlayout)
         val bottomSheet = constraintlayout.findViewById<NestedScrollView>(R.id.bottom_sheet)
         val behavior = BottomSheetBehavior.from(bottomSheet)
@@ -63,8 +62,9 @@ class LeftDrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
         button_bottomsheetdialog.setOnClickListener { view ->
             val dialog = BottomSheetDialog(this)
             val view = layoutInflater.inflate(R.layout.bottomsheet_dialog, null)
-            dialog.window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             dialog.setContentView(view)
+            dialog.window.findViewById<View>(R.id.design_bottom_sheet)
+                    .setBackgroundColor(resources.getColor(R.color.transparent))
             dialog.show()
         }
 
@@ -72,6 +72,14 @@ class LeftDrawerActivity : AppCompatActivity(), NavigationView.OnNavigationItemS
             val bottomSheetFragment = MenuBottomSheetDialogFragment()
             bottomSheetFragment.show(supportFragmentManager, "dialog")
         })
+
+        button_webview.setOnClickListener {
+            startActivity(Intent(LeftDrawerActivity@ this, WebViewActivity::class.java))
+        }
+
+        button_contract.setOnClickListener {
+            startActivity(Intent(LeftDrawerActivity@ this, ContractActivity::class.java))
+        }
     }
 
     fun changeFragment(content: String) {

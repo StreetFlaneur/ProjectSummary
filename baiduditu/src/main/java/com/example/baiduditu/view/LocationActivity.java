@@ -115,6 +115,9 @@ public class LocationActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        String content = "123";
+
+
         textViewStoreName = (TextView) findViewById(R.id.textview_storename);
         textViewDistance = (TextView) findViewById(R.id.textview_distance);
         textViewDistanceOther = (TextView) findViewById(R.id.textview_distance_other);

@@ -16,4 +16,8 @@
     <color name="blue_lighter">#49B7FF</color>
     <!--android.R.color.transparent-->
     <color name="transparent">#00ffffff</color>
+
+    <color name="black">#000000</color>
+
+    <color name="grey">#7F7F7F</color>
 </resources>

@@ -19,13 +19,14 @@ class MenuBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.BottomSheetDialogStyle)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
+        val dialog = BottomSheetDialog(context)
         val view = View.inflate(context, R.layout.bottomsheet_dialog, null)
         dialog.setContentView(view)
+        dialog.window.findViewById<View>(R.id.design_bottom_sheet)
+                .setBackgroundColor(resources.getColor(R.color.transparent))
         mBehavior = BottomSheetBehavior.from(view.parent as View)
         return dialog
     }
@@ -36,6 +37,6 @@ class MenuBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        mBehavior!!.state = BottomSheetBehavior.STATE_EXPANDED;
+        mBehavior!!.state = BottomSheetBehavior.STATE_EXPANDED
     }
 }

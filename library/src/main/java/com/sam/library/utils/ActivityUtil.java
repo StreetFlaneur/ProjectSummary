@@ -11,7 +11,7 @@ import static com.facebook.common.internal.Preconditions.checkNotNull;
  * Created by sam on 2018/1/23.
  */
 
-public class ActivityUtils {
+public class ActivityUtil {
 
     public static void addFragmentToActivity(@NonNull FragmentManager fragmentManager,
                                              @NonNull Fragment fragment, int frameId) {

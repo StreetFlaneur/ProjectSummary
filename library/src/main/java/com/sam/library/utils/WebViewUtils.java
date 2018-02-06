@@ -49,16 +49,8 @@ public class WebViewUtils {
         }
     }
 
-    public static void setWebSettingWithOutLocation(WebSettings webSettings, Context context) {
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
-        webSettings.setSupportMultipleWindows(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        }
-    }
 
-    public static void setWebSetting(WebSettings webSettings, Context context) {
+    public static void setLocationCache(WebSettings webSettings, Context context) {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setSupportMultipleWindows(true);
@@ -68,6 +60,9 @@ public class WebViewUtils {
         webSettings.setDomStorageEnabled(true);
         //启用地理定位
         webSettings.setGeolocationEnabled(true);
+
+
+        //添加缓存会导致部分网页页面图片不显示
         String cacheDirPath = WebViewUtils.getWebCacheDir(context.getApplicationContext());
         //设置数据库缓存路径
         webSettings.setDatabasePath(cacheDirPath);
@@ -75,6 +70,16 @@ public class WebViewUtils {
         webSettings.setAppCachePath(cacheDirPath);
         //开启 Application Caches 功能
         webSettings.setAppCacheEnabled(true);
+        //5.0 以上版本webview允许https链接里面放http的图片
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
+    }
+
+    public static void setJsEnable(WebSettings webSettings, Context context) {
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setSupportMultipleWindows(true);
         //5.0 以上版本webview允许https链接里面放http的图片
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);

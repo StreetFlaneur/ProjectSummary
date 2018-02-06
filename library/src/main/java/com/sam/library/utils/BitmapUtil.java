@@ -10,7 +10,7 @@ import java.io.IOException;
  * Created by sam on 2018/1/31.
  */
 
-public class BitmapUtils {
+public class BitmapUtil {
 
     //bitmap to base64 post 提交图片
     public static String bitmapToBase64(Bitmap bitmap) {

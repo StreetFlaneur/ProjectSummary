@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.leftdrawer"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 26
         multiDexEnabled true
         versionCode 1
@@ -28,7 +28,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support:design:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -36,14 +36,12 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     compile 'com.android.support:multidex:1.0.1'
-
     //butterkinfe 不能放在library里，否则无效
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile project(':library')
     compile project(':data')
+    compile files('libs/pinyin4j-2.5.0.jar')
 }

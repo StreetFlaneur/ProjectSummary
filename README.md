@@ -146,6 +146,8 @@ Volley
 
  - 富文本显示
     compile 'com.zzhoujay.richtext:richtext:2.5.4'
+有的图片显示不正常，直接使用webview加载富文本。
+
 - 百度地图定位+导航 见baiduditu  module
   使用最新sdk，遇到问题
   1) .so文件一直加载失败
@@ -193,35 +195,58 @@ m:h:xh:xxh:xxxh 比例为 1:1.5:2:3:4
       ![](/images/white_image_head.gif)
       ![](/images/blue_image_head.gif)
 
-    
-- 标题随内容滑动，标题按钮和标题渐变 
+
+- 标题随内容滑动，标题按钮和标题渐变  GradationScrollView  监听onScrollChange方法
 - 页面滑动悬浮标题效果  
   见 leftdrawer module  HomeFragment
-- 底部bottomsheetdialog  显示全部 并且圆形按钮高出一部分  todo
+- 底部bottomsheet使用  
+1）  bottomsheet  分享菜单
+2）bottomsheetdialog  背景透明 先设置view后，再设置背景色
+```
+ val dialog = BottomSheetDialog(context)
+        val view = View.inflate(context, R.layout.bottomsheet_dialog, null)
+        dialog.setContentView(view)
+        dialog.window.findViewById<View>(R.id.design_bottom_sheet)
+                .setBackgroundColor(resources.getColor(R.color.transparent))
+        mBehavior = BottomSheetBehavior.from(view.parent as View)
+        return dialog
+```
+3) bottomsheetdialogfragment
+onCreateDialog,设置透明背景同上
 
 - 列表字母排序(联系人或者城市列表) todo
 
+- View 宽度高度变化动画
+
+- 加入购物车动画
 
 - scrollview嵌套recyclerview显示不全解决办法
 
-- 类似淘宝头条上下滚动替换(一个或者两个)
+- 类似淘宝头条上下滚动替换(一个或者两个同时滚动)
 
 - popwindow 添加页面其他部分阴影
 
 - 前端显示图片变形解决办法
-  - 保持一定的宽高比里 常使用fixXY
+  - 保持一定的宽高比例， 常使用fixXY。后台上传图片做限制。
 
 - android6.0 以上，app切换到后台，修改权限，造成Application全局静态变量为空的问题
+解决办法，把全局变量存入文件，每次get，判断为空就从文件获取
 
-- webview相关问题
-   1） webview开启定位
+- webview相关问题  WebViewUtils
+   1） webview开启定位  LocationChromeClient
    2） webview清除缓存 
    3） 带加载进度条的webview
+   添加设置缓存目录后，会导致下面链接头像图片不显示
+   http://api.metro.com.cn/lpwebapptest/?openid=oJ9_hjrbjh4HosrSH0c5_Dde1t-M
 
 
 - 多语言设置 7.0版本以上
   在7.0系统以后，系统语言选择已经不再是设置一种语言，而是可以设置一组语言。
   需要在BaseActivity里面设置语言，或者在每一个activity里面都设置语言。
+  
+- 图片缓存策略
+glide 虽然有两级缓存，但是应用进程被杀死后网络图片加载仍然很慢。实际图片已经缓存在本地，只是网路接口获取数据慢，造成应用打开后需要等接口返回数据后，glide才会去加载数据。有这样的延迟，所以会造成再次打开应用，图片加载很慢的现象。目前的解决办法：把图片链接缓存到本地，页面显示，直接加载缓存数据，等接口返回后，再刷新页面数据。
+
 
 #### MVC MVP MVVM 比较
 - MVC

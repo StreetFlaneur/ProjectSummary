@@ -33,7 +33,7 @@ public class WebViewLocation extends AppCompatActivity {
         webView.loadUrl(Constants.TEST_URL);
 
         WebSettings webSettings = webView.getSettings();
-        WebViewUtils.setWebSetting(webSettings, getApplicationContext());
+        WebViewUtils.setLocationCache(webSettings, getApplicationContext());
         webView.setWebViewClient(new WebViewClient() {
             //当点击链接时,希望覆盖而不是打开新窗口
             @Override
