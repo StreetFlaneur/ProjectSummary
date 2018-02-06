@@ -2,6 +2,7 @@ package com.example.leftdrawer
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
@@ -30,8 +31,8 @@ class SlideMenuActivity : AppCompatActivity() {
         setContentView(R.layout.activity_slidemenu)
         ButterKnife.bind(this)
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        var fragment: HomeFragment? = supportFragmentManager
-                .findFragmentById(R.id.fragment_container) as HomeFragment
+        var fragment = supportFragmentManager
+                .findFragmentById(R.id.fragment_container)
         if (fragment == null) {
             fragment = HomeFragment.newInstance("")
             fragmentTransaction.add(R.id.fragment_container, fragment)
@@ -39,8 +40,8 @@ class SlideMenuActivity : AppCompatActivity() {
         }
 
         button_person.setOnClickListener {
-            val personFragment = PersonFragment.newInstance("Person")
-            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            var personFragment = PersonFragment.newInstance("Person")
+            var fragmentTransaction = supportFragmentManager.beginTransaction()
             fragmentTransaction.replace(R.id.fragment_container, personFragment)
                     .commitAllowingStateLoss()
             slidemenulayout.closeLeftSlide()
