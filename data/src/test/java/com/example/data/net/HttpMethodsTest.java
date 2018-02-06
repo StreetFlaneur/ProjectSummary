@@ -1,6 +1,5 @@
 package com.example.data.net;
 
-import com.example.data.entity.Book;
 import com.example.data.entity.BookResult;
 import com.google.gson.Gson;
 
@@ -8,7 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
+import java.io.IOException;
 
 import rx.Observer;
 
@@ -53,6 +52,36 @@ public class HttpMethodsTest {
             public void onNext(BookResult bookResult) {
                 System.out.println(gson.toJson(bookResult));
 
+            }
+        });
+    }
+
+    @Test
+    public void testOkHttpGet() throws IOException {
+        OkHttpManager okHttpManager = OkHttpManager.getInstance();
+        okHttpManager.setTest(true);
+        String url = "https://api.douban.com/v2/book/search?";
+      /*  @Query("q") String q,
+        @Query("tag") String tag,
+        @Query("start") String start,
+        @Query("count") String count*/
+        String keyword = "电商";
+        String tag = "";
+        String start = "1";
+        String count = "10";
+        String params = "q=" + keyword +
+                "&tag=" + tag +
+                "&start=" + start +
+                "&count=" + count;
+        okHttpManager.getDataSync(url + params, new OnHttpResultListener() {
+            @Override
+            public void onError(int code, String message) {
+                System.out.print(message);
+            }
+
+            @Override
+            public void onSuccess(String response) {
+                System.out.print(response);
             }
         });
     }

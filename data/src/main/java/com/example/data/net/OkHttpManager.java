@@ -27,12 +27,13 @@ public class OkHttpManager {
     private Map<String, String> headerParams;
     private OkHttpClient okHttpClient;
     private Handler handler;
+    private boolean isTest = false;
 
     private static volatile OkHttpManager Instance;
 
     private OkHttpManager() {
         okHttpClient = getOkHttpClient();
-        handler = new Handler(Looper.getMainLooper());
+//        handler = new Handler(Looper.getMainLooper());
     }
 
     public static OkHttpManager getInstance() {
@@ -50,7 +51,11 @@ public class OkHttpManager {
         this.headerParams = headerParams;
     }
 
-    public void getData(String url, final OnHttpResultListener onHttpResultListener) {
+    public void setTest(boolean test) {
+        isTest = test;
+    }
+
+    public void getDataAsync(String url, final OnHttpResultListener onHttpResultListener) {
         Request.Builder requestBuilder = new Request.Builder();
         this.addHttpHead(requestBuilder, headerParams);
         Request request = requestBuilder.url(url)
@@ -69,8 +74,18 @@ public class OkHttpManager {
         });
     }
 
-    public void postData(String url, Map<String, String> params,
-                         final OnHttpResultListener onHttpResultListener) {
+    public void getDataSync(String url, final OnHttpResultListener onHttpResultListener) throws IOException {
+        Request.Builder requestBuilder = new Request.Builder();
+        this.addHttpHead(requestBuilder, headerParams);
+        Request request = requestBuilder.url(url)
+                .tag(url)
+                .get().build();
+        Response response = this.okHttpClient.newCall(request).execute();
+        dealResponse(response, onHttpResultListener);
+    }
+
+    public void postDataAsync(String url, Map<String, String> params,
+                              final OnHttpResultListener onHttpResultListener) {
         FormBody.Builder paramsBuilder = new FormBody.Builder();
         Iterator iterator = params.entrySet().iterator();
         while (iterator.hasNext()) {
@@ -93,6 +108,34 @@ public class OkHttpManager {
                 dealResponse(response, onHttpResultListener);
             }
         });
+    }
+
+    public void postDataSync(String url, Map<String, String> params,
+                             final OnHttpResultListener onHttpResultListener) throws IOException {
+        FormBody.Builder paramsBuilder = new FormBody.Builder();
+        Iterator iterator = params.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<String, String> entry = (Map.Entry<String, String>) iterator.next();
+            paramsBuilder.add(entry.getKey(), entry.getValue());
+        }
+        Request.Builder requestBuilder = new Request.Builder();
+        this.addHttpHead(requestBuilder, headerParams);
+        Request request = requestBuilder.url(url)
+                .tag(url)
+                .post(paramsBuilder.build()).build();
+        Response response = this.okHttpClient.newCall(request).execute();
+        dealResponse(response, onHttpResultListener);
+        /*.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+                dealError(e, onHttpResultListener);
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                dealResponse(response, onHttpResultListener);
+            }
+        });*/
     }
 
     private void addHttpHead(Request.Builder builder, Map<String, String> heads) {
@@ -124,30 +167,44 @@ public class OkHttpManager {
                 });
             }
         }
+        if (isTest && null != onHttpResultListener) {
+            onHttpResultListener.onError(ERROR_CODE, e.getMessage());
+        }
     }
 
     private void dealResponse(final Response response, final OnHttpResultListener onHttpResultListener) throws IOException {
-        if (response.isSuccessful()) {
-            if (null != onHttpResultListener) {
-                final String result = response.body().string();
-                if (null != handler) {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            onHttpResultListener.onSuccess(result);
-                        }
-                    });
+        if (!isTest) {
+            if (response.isSuccessful()) {
+                if (null != onHttpResultListener) {
+                    final String result = response.body().string();
+                    if (null != handler) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                onHttpResultListener.onSuccess(result);
+                            }
+                        });
+                    }
+                }
+            } else {
+                if (null != onHttpResultListener) {
+                    if (null != handler) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                onHttpResultListener.onError(response.code(), response.message());
+                            }
+                        });
+                    }
                 }
             }
         } else {
             if (null != onHttpResultListener) {
-                if (null != handler) {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            onHttpResultListener.onError(response.code(), response.message());
-                        }
-                    });
+                if (response.isSuccessful()) {
+                    String result = response.body().string();
+                    onHttpResultListener.onSuccess(result);
+                } else {
+                    onHttpResultListener.onError(response.code(), response.message());
                 }
             }
         }
