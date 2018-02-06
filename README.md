@@ -40,9 +40,13 @@
 
 使用的网络请求库
 - Retrofit+Okhttp+Rxjava2  见data module
-- OkHttp todo
-- Volley  todo
+
+- OkHttp  见data module OkHttpManager
+
+- Volley  存在自动重试机制，弃用
+
   **该实现方式以前项目存在的问题：网络状况不好时，重试机制会造成接口调用两次的问题，设置重试机制不可用无效，目前没有好的解决办法。**
+
 - 上传图片实现（单张、多张、附加文本信息）
   1)retrofit okhttp 多媒体提交 multi 没有附带多余文本信息
 ```
@@ -146,7 +150,7 @@ Volley
 
  - 富文本显示
     compile 'com.zzhoujay.richtext:richtext:2.5.4'
-有的图片显示不正常，直接使用webview加载富文本。
+    有的图片显示不正常，直接使用webview加载富文本。
 
 - 百度地图定位+导航 见baiduditu  module
   使用最新sdk，遇到问题
@@ -200,8 +204,8 @@ m:h:xh:xxh:xxxh 比例为 1:1.5:2:3:4
 - 页面滑动悬浮标题效果  
   见 leftdrawer module  HomeFragment
 - 底部bottomsheet使用  
-1）  bottomsheet  分享菜单
-2）bottomsheetdialog  背景透明 先设置view后，再设置背景色
+  1）  bottomsheet  分享菜单
+  2）bottomsheetdialog  背景透明 先设置view后，再设置背景色
 ```
  val dialog = BottomSheetDialog(context)
         val view = View.inflate(context, R.layout.bottomsheet_dialog, null)
@@ -214,7 +218,7 @@ m:h:xh:xxh:xxxh 比例为 1:1.5:2:3:4
 3) bottomsheetdialogfragment
 onCreateDialog,设置透明背景同上
 
-- 列表字母排序(联系人或者城市列表) todo
+- 列表字母排序(联系人或者城市列表)  **字母标题悬浮效果还没实现**
 
 - View 宽度高度变化动画
 
@@ -230,7 +234,7 @@ onCreateDialog,设置透明背景同上
   - 保持一定的宽高比例， 常使用fixXY。后台上传图片做限制。
 
 - android6.0 以上，app切换到后台，修改权限，造成Application全局静态变量为空的问题
-解决办法，把全局变量存入文件，每次get，判断为空就从文件获取
+  解决办法，把全局变量存入文件，每次get，判断为空就从文件获取
 
 - webview相关问题  WebViewUtils
    1） webview开启定位  LocationChromeClient
@@ -243,9 +247,9 @@ onCreateDialog,设置透明背景同上
 - 多语言设置 7.0版本以上
   在7.0系统以后，系统语言选择已经不再是设置一种语言，而是可以设置一组语言。
   需要在BaseActivity里面设置语言，或者在每一个activity里面都设置语言。
-  
+
 - 图片缓存策略
-glide 虽然有两级缓存，但是应用进程被杀死后网络图片加载仍然很慢。实际图片已经缓存在本地，只是网路接口获取数据慢，造成应用打开后需要等接口返回数据后，glide才会去加载数据。有这样的延迟，所以会造成再次打开应用，图片加载很慢的现象。目前的解决办法：把图片链接缓存到本地，页面显示，直接加载缓存数据，等接口返回后，再刷新页面数据。
+  glide 虽然有两级缓存，但是应用进程被杀死后网络图片加载仍然很慢。实际图片已经缓存在本地，只是网路接口获取数据慢，造成应用打开后需要等接口返回数据后，glide才会去加载数据。有这样的延迟，所以会造成再次打开应用，图片加载很慢的现象。目前的解决办法：把图片链接缓存到本地，页面显示，直接加载缓存数据，等接口返回后，再刷新页面数据。
 
 
 #### MVC MVP MVVM 比较
