@@ -56,6 +56,10 @@
 
         <!--首页底部导航栏-->
         <activity android:name=".activity.BottomTabActivtiy">
+
+        </activity>
+
+        <activity android:name="com.sam.ShadowActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

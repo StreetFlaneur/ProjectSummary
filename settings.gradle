@@ -1,4 +1,4 @@
 include ':app', ':library', ':StatusBar',
         ':baiduditu', ':librarycommon',
         ':librarycoremodule', ':leftdrawer',
-        ':data',':zxingLinrary2'
+        ':data',':zxingLinrary2',':X5WebDemo'
