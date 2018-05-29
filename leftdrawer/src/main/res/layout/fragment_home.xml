@@ -5,7 +5,7 @@
     android:background="@color/white"
     android:gravity="center">
 
-    <com.sam.library.widget.GradationScrollView
+    <com.techidea.library.widget.GradationScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -163,7 +163,7 @@
 
         </LinearLayout>
 
-    </com.sam.library.widget.GradationScrollView>
+    </com.techidea.library.widget.GradationScrollView>
 
     <LinearLayout
         android:id="@+id/layoutchange_menu_suspension"

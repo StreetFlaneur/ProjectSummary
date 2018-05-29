@@ -88,7 +88,7 @@
 
             fresco:roundedCornerRadius="1dp" />
 
-        <com.sam.library.widget.AvatarView
+        <com.techidea.library.widget.AvatarView
             android:id="@+id/avatarview"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -97,7 +97,7 @@
             android:visibility="gone"
             tools:src="@mipmap/ic_launcher" />
 
-        <com.sam.library.widget.AvatarView
+        <com.techidea.library.widget.AvatarView
             android:id="@+id/avatarview1"
             android:layout_width="80dp"
             android:layout_height="80dp"

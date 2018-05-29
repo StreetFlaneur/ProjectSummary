@@ -7,11 +7,13 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
     defaultConfig {
-        applicationId "com.sam.projectsummary"
+        applicationId "com.techidea.sgsb"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
+        multiDexEnabled true
         versionName "1.0"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -35,6 +37,9 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.zzhoujay.richtext:richtext:2.5.4'
 
+    compile project(':library')
+    compile project(':data')
+
     //微信支付，无统计功能
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 
@@ -44,6 +49,7 @@ dependencies {
     compile 'com.just.agentweb:agentweb:4.0.1' // (必选)
     compile 'com.just.agentweb:download:4.0.1' // (可选)
     compile 'com.just.agentweb:filechooser:4.0.1'// (可选)
+
 
 
 }

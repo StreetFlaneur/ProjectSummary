@@ -1,48 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sam.projectsummary">
+    package="com.techidea.sgsb">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+
+    <!-- for mta statistics -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
 
     <application
-        android:name=".SummaryApplication"
+        android:name="com.techidea.sgsb.SummaryApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoActionBarTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.techidea.sgsb.MainActivity">
 
         </activity>
 
-        <activity android:name=".scrollrecyclerview.ScrollRecyclerviewActivity">
+        <activity android:name="com.techidea.sgsb.scrollrecyclerview.ScrollRecyclerviewActivity">
 
         </activity>
 
-        <activity android:name=".ParamActivity">
+        <activity android:name="com.techidea.sgsb.ParamActivity">
 
         </activity>
-        <activity android:name=".RichTextActivity">
+        <activity android:name="com.techidea.sgsb.RichTextActivity">
 
         </activity>
 
-        <activity android:name=".PicassoActivity">
+        <activity android:name="com.techidea.sgsb.PicassoActivity">
 
         </activity>
-        <activity android:name=".RatingbarActivity"></activity>
+        <activity android:name="com.techidea.sgsb.RatingbarActivity"></activity>
 
-        <activity android:name=".WeChatTestActivity">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
+        <activity android:name="com.techidea.sgsb.WeChatTestActivity">
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".WebViewLocation">
+        <activity android:name="com.techidea.sgsb.WebViewLocation">
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -50,22 +56,39 @@
             </intent-filter>-->
         </activity>
 
-        <activity android:name=".CircleImageViewActivity">
+        <activity android:name="com.techidea.sgsb.CircleImageViewActivity">
 
         </activity>
 
         <!--首页底部导航栏-->
-        <activity android:name=".activity.BottomTabActivtiy">
+        <activity android:name="com.techidea.sgsb.activity.BottomTabActivtiy">
 
         </activity>
 
-        <activity android:name="com.sam.ShadowActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name="com.techidea.TakePhotoActivity">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:label="@string/app_name">
+
+
+        </activity>
+
+        <activity android:name=".activity.AnimatorActivity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+
+
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.kotlinsample;
+package com.library.kotlinsample;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

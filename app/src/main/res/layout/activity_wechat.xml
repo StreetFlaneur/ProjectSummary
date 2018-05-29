@@ -10,6 +10,17 @@
         android:id="@+id/textview_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <TextView
+            android:id="@+id/text_animator"
+            android:text="test_Animator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
     
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/switchview"
@@ -36,6 +47,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="分享消息" />
+
+    <Button
+        android:id="@+id/btn_open_mp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="打开小程序" />
+
+    <Button
+        android:id="@+id/btn_share_mp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="分享小程序" />
 
     <EditText
         android:id="@+id/textview"

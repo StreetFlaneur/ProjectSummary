@@ -1,4 +1,4 @@
-include ':app', ':library', ':StatusBar',
+include ':app', ':library', ':StatusBar', ':takephoto', ':apidemo',
         ':baiduditu', ':librarycommon',
         ':librarycoremodule', ':leftdrawer',
         ':data',':zxingLinrary2',':X5WebDemo'
