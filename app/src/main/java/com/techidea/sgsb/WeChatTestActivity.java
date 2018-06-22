@@ -1,6 +1,9 @@
 package com.techidea.sgsb;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -222,13 +225,48 @@ public class WeChatTestActivity extends AppCompatActivity {
         }
     }
 
+    @OnClick(R.id.text_animator)
+    void textCopyClick() {
+        ClipboardManager mClipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("label","copy");
+        ClipData.Item itemd = new ClipData.Item("item");
+        clip.addItem(itemd);
+
+        // Set the clipboard's primary clip.
+        mClipboard.setPrimaryClip(clip);
+        String resultString = "";
+        // 检查剪贴板是否有内容
+        if (!mClipboard.hasPrimaryClip()) {
+            Toast.makeText(this,
+                    "Clipboard is empty", Toast.LENGTH_SHORT).show();
+        } else {
+            ClipData clipData = mClipboard.getPrimaryClip();
+            int count = clipData.getItemCount();
+
+            for (int i = 0; i < count; ++i) {
+
+                ClipData.Item item = clipData.getItemAt(i);
+                CharSequence str = item
+                        .coerceToText(this);
+                Log.i("mengdd", "item : " + i + ": " + str);
+
+                resultString += str;
+            }
+
+            Toast.makeText(this,
+                    resultString, Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
+
     @OnClick(R.id.btn_wxshare_img)
     void shareImg() {
         Platform wechat = ShareSDK.getPlatform(WechatMoments.NAME);
         wechat.setPlatformActionListener(new PlatformActionListener() {
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                Log.w("TAG","err");
+                Log.w("TAG", "err");
             }
 
             @Override
@@ -239,7 +277,7 @@ public class WeChatTestActivity extends AppCompatActivity {
 
             @Override
             public void onCancel(Platform platform, int i) {
-                Log.w("TAG","err");
+                Log.w("TAG", "err");
             }
         });
         String[] AVATARS = {
@@ -260,7 +298,6 @@ public class WeChatTestActivity extends AppCompatActivity {
         wechat.share(params);
 
     }
-
 
 
     @OnClick(R.id.btn_wxshare_photo)

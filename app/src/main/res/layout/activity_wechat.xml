@@ -19,7 +19,7 @@
             android:id="@+id/text_animator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="test_Animator" />
+            android:text="test_Animator  复制剪切" />
     </LinearLayout>
 
     <android.support.v7.widget.SwitchCompat
