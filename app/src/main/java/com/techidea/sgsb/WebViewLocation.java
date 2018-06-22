@@ -30,7 +30,6 @@ public class WebViewLocation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview_location);
         ButterKnife.bind(this);
-        webView.loadUrl(Constants.TEST_URL);
 
         WebSettings webSettings = webView.getSettings();
         WebViewUtils.setLocationCache(webSettings, getApplicationContext());
@@ -61,6 +60,7 @@ public class WebViewLocation extends AppCompatActivity {
                 return false;
             }
         });
+        webView.loadUrl(Constants.ANLI_ARTICLE_URL);
 
     }
 }

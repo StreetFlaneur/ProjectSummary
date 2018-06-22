@@ -1,10 +1,14 @@
-package com.techidea.sgsb;
+package com.techidea;
 
 import android.app.Application;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.mob.MobApplication;
+import com.mob.MobSDK;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import cn.sharesdk.framework.ShareSDK;
 
 /**
  * Created by sam on 2017/11/29.
@@ -19,6 +23,7 @@ public class SummaryApplication extends Application {
         super.onCreate();
         Fresco.initialize(this);
         registWeChat();
+        MobSDK.init(this, "", "");
 //        CacheLoaderConfiguration cacheLoaderConfiguration  = new CacheLoaderConfiguration();
 //        CacheLoaderManager.getInstance().init(this,
 //        new HashCodeFileNameGenerator(), 1024 * 1024 * 8, 50, 20);

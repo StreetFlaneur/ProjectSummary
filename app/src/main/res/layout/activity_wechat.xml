@@ -17,15 +17,89 @@
 
         <TextView
             android:id="@+id/text_animator"
-            android:text="test_Animator"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="test_Animator" />
     </LinearLayout>
-    
+
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/switchview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/iv_share1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/a4061" />
+
+    <ImageView
+        android:id="@+id/iv_share2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        android:scaleType="fitXY"
+        android:src="@mipmap/a4062" />
+
+    <ImageView
+        android:id="@+id/iv_share3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        android:scaleType="fitXY"
+        android:src="@mipmap/a4063" />
+
+    <ImageView
+        android:id="@+id/iv_share4"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        android:scaleType="fitXY"
+        android:src="@mipmap/a4064" />
+
+    <ImageView
+        android:id="@+id/iv_share5"
+        android:layout_width="100dp"
+        android:visibility="gone"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/a4065" />
+
+    <ImageView
+        android:id="@+id/iv_share6"
+        android:layout_width="100dp"
+        android:visibility="gone"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/a4066" />
+
+    <ImageView
+        android:id="@+id/iv_share7"
+        android:visibility="gone"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/a4067" />
+
+    <ImageView
+        android:id="@+id/iv_share8"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        android:scaleType="fitXY"
+        android:src="@mipmap/a4068" />
+
+    <ImageView
+        android:id="@+id/iv_share9"
+        android:layout_width="100dp"
+        android:visibility="gone"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/a4069" />
+
+
+
 
     <Switch
         android:layout_width="wrap_content"
@@ -35,6 +109,18 @@
         android:id="@+id/imageviewTest"
         android:layout_width="100dp"
         android:layout_height="100dp" />
+
+    <Button
+        android:id="@+id/btn_wxshare_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="微信分享多张图片" />
+
+    <Button
+        android:id="@+id/btn_wxshare_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="微信分享图片" />
 
     <Button
         android:id="@+id/btn_authlogin"

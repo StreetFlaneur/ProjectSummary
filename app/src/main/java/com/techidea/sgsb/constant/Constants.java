@@ -7,6 +7,7 @@ package com.techidea.sgsb.constant;
 public class Constants {
 
     public static final String TEST_URL = "https://cn.bing.com/";
+    public static final String ANLI_ARTICLE_URL = "https://bizqa.amwaynet.com.cn/content/china/accl/ch/nutrilite/brand/2018/0105001.aas16627.html?userType=WECHATUSER&token=WECHAT_FRAMWORK_AUTHORISE:f1eaf424-c6ae-40d5-823a-d956e1bdd36b";
 
     public static final String IMAGE01 = "http://app3titest.metro.com.cn:8080/metro/metro/ShowImg/31242";
     public static final String IMAGE02 = "http://app3titest.metro.com.cn:8080/metro/metro/ShowImg/31225";
