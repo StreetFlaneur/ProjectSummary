@@ -1,4 +1,4 @@
-include ':app', ':library', ':StatusBar', ':takephoto', ':apidemo',
+include ':app', ':library', ':StatusBar', ':takephoto', ':apidemo', ':konytestlib',
         ':baiduditu', ':librarycommon',
         ':librarycoremodule', ':leftdrawer',
         ':data',':zxingLinrary2',':X5WebDemo'

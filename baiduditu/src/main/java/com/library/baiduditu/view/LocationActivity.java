@@ -64,6 +64,9 @@ public class LocationActivity extends AppCompatActivity
         EasyPermissions.PermissionCallbacks,
         OnGetRoutePlanResultListener {
 
+    BikingRouteResult bikingRouteResult;
+    DrivingRouteResult drivingRouteResult;
+    WalkingRouteResult walkingRouteResult;
 
     //    @BindView(R.id.textview_storename)
     TextView textViewStoreName;

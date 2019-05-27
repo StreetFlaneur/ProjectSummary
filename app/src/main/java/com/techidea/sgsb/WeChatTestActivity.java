@@ -266,7 +266,7 @@ public class WeChatTestActivity extends AppCompatActivity {
         wechat.setPlatformActionListener(new PlatformActionListener() {
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                Log.w("TAG", "err");
+                Log.w("TAG", "onComplete");
             }
 
             @Override
@@ -277,9 +277,10 @@ public class WeChatTestActivity extends AppCompatActivity {
 
             @Override
             public void onCancel(Platform platform, int i) {
-                Log.w("TAG", "err");
+                Log.w("TAG", "onCancel");
             }
         });
+
         String[] AVATARS = {
                 "http://img1.2345.com/duoteimg/qqTxImg/2012/04/09/13339485237265.jpg",
                 "http://diy.qqjay.com/u/files/2012/0523/f466c38e1c6c99ee2d6cd7746207a97a.jpg",
@@ -287,13 +288,19 @@ public class WeChatTestActivity extends AppCompatActivity {
                 "http://img1.2345.com/duoteimg/qqTxImg/2012/04/09/13339510584349.jpg",
                 "http://diy.qqjay.com/u2/2013/0401/4355c29b30d295b26da6f242a65bcaad.jpg"
         };
-        String image[] = {"http://www.wyl.cc/wp-content/uploads/2014/02/10060381306b675f5c5.jpg", "http://www.wyl.cc/wp-content/uploads/2014/02/10060381306b675f5c5.jpg"};
+
+
+
+        String image[] = {"http://www.wyl.cc/wp-content/uploads/2014/02/10060381306b675f5c5.jpg",
+                "http://www.wyl.cc/wp-content/uploads/2014/02/10060381306b675f5c5.jpg"};
         Platform.ShareParams params = new Platform.ShareParams();
+
+        //多张
 //        Bitmap logo = BitmapFactory.decodeResource(getResources(),R.mipmap.icon_logo);
         params.setShareType(Platform.SHARE_IMAGE);
-        params.setImageArray(image);
-//        params.setImageUrl("http://www.wyl.cc/wp-content/uploads/2014/02/10060381306b675f5c5.jpg");
-//        params.setText("123");
+//        params.setImageArray(AVATARS);
+        params.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+        params.setText("123");
         params.setUrl("http://www.sharesdk.cn");
         wechat.share(params);
 

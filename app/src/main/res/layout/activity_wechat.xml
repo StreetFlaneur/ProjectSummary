@@ -114,13 +114,13 @@
         android:id="@+id/btn_wxshare_photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="微信分享多张图片" />
+        android:text="Wechat原生Share多张图片" />
 
     <Button
         android:id="@+id/btn_wxshare_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="微信分享图片" />
+        android:text="ShareSDK分享多图片" />
 
     <Button
         android:id="@+id/btn_authlogin"
